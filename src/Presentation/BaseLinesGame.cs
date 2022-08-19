@@ -121,7 +121,7 @@ public partial class BaseLinesGame
     private void AddFruitToStart(Position2D position)
     {
         var fruit = this.FruitScene.Instance<Fruit>();
-        fruit.FruitType = (Fruit.FruitTypes)r.Next(Enum.GetValues(typeof(Fruit.FruitTypes)).Length);
+        fruit.FruitType = UsedColors[r.Next(UsedColors.Length)];
         fruit.Position = position.Position;
         fruit.AddToGroup(Groups.Fruits);
         fruit.AddToGroup(Groups.FruitsAtStart);
