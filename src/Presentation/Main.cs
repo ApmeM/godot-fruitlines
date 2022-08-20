@@ -18,10 +18,8 @@ public partial class Main
         base._Ready();
         this.FillMembers();
 
-        this.popupBackButton.Connect(CommonSignals.Pressed, this, nameof(ClosePopup));
         this.credentialsButton.Connect(CommonSignals.Pressed, this, nameof(ShowCredentials));
         this.helpButton.Connect(CommonSignals.Pressed, this, nameof(ShowHelp));
-
 
         var theme = ResourceLoader.Load<Theme>("res://Presentation/UITheme.tres");
 
@@ -39,28 +37,18 @@ public partial class Main
 
     private void ShowCredentials()
     {
-        this.popupLabel.Text =  @"
-
-
-
-
-
+        this.customTextPopup.Text =  @"
 Developer: Artem Votintcev
 Design: Alexandra Votintceva 
 Game Images: Loading.io
 UI Images: Gameart2d.com
-Idea: Color lines 1998
-
-
-
-
-Created at 2017";
-        this.popupDialog.ShowModal();
+Idea: Color lines 1998";
+        this.customTextPopup.Show();
     }
     
     private void ShowHelp()
     {
-        this.popupLabel.Text =  @"
+        this.customTextPopup.Text =  @"
   In 'Lines' game you need to assemble a row
 with 5 fruits of the same type horizontally, 
 vertically or diagonally to get scores. 
@@ -72,12 +60,7 @@ line with 3 fruits in a row disappear and
 grant you scores. Unfortunately it is not 
 what you need to do.
   Goal: minimize your score.";
-        this.popupDialog.ShowModal();
-    }
-
-    private void ClosePopup()
-    {
-        this.popupDialog.Hide();
+        this.customTextPopup.Show();
     }
 
     public void StartGameDone(int gameId)
