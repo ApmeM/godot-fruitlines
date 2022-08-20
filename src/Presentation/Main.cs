@@ -9,7 +9,8 @@ public partial class Main
 {
     private IGame[] availableGames = new IGame[]{
         new AntiLinesGame(),
-        new LinesGame()
+        new LinesGame(),
+        new FloodItGame()
     };
 
     public override void _Ready()

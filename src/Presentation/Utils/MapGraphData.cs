@@ -142,5 +142,57 @@ namespace IsometricGame.Logic.ScriptHelpers
             ballsToRemove.Clear();
             return ballsToRemove;
         }
+
+
+        public HashSet<Vector2> GetArea(int x, int y)
+        {
+            var color = this.Map[x, y].FruitType;
+
+            var frontier = new Queue<Vector2>();
+            frontier.Enqueue(new Vector2(x, y));
+
+            var visited = new HashSet<Vector2>();
+
+            while (frontier.Count > 0)
+            {
+                var current = frontier.Dequeue();
+
+                foreach (var next in this.GetNeighborsFloodIt(current))
+                {
+                    if (!this.IsNodeInBounds(next))
+                    {
+                        continue;
+                    }
+
+                    if (Map[(int)next.x, (int)next.y].FruitType != color)
+                    {
+                        continue;
+                    }
+
+                    if (!visited.Contains(next))
+                    {
+                        frontier.Enqueue(next);
+                        visited.Add(next);
+                    }
+                }
+            }
+            
+            return visited;
+        }
+
+        private IEnumerable<Vector2> GetNeighborsFloodIt(Vector2 node)
+        {
+            this.neighbors.Clear();
+
+            foreach (var dir in CardinalDirs)
+            {
+                var next = new Vector2(node.x + dir.x, node.y + dir.y);
+                if (this.IsNodeInBounds(next))
+                    this.neighbors.Add(next);
+            }
+
+            return this.neighbors;
+        }
+
     }
 }

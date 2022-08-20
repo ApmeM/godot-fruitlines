@@ -18,7 +18,6 @@ namespace IsometricGame.Presentation.Utils
                 Fruit.FruitTypes.Lemon,
                 Fruit.FruitTypes.Pear
             };
-
             result.LineLength = 3;
             result.IncreaseMultiplier = 0;
 

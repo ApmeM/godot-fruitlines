@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using IsometricGame.Presentation.Utils;
 using DodgeTheCreeps.Utils;
 
-[Tool]
 [SceneReference("BaseLinesGame.tscn")]
 public partial class BaseLinesGame
 {
