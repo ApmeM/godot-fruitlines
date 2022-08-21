@@ -108,7 +108,7 @@ texture_disabled = SubResource( 6 )
 expand = true
 stretch_mode = 4
 
-[node name="CustomTextPopup" parent="HUD" instance=ExtResource( 2 )]
+[node name="CredentialsPopup" parent="HUD" instance=ExtResource( 2 )]
 visible = false
 __meta__ = {
 "_editor_description_": ""
@@ -124,3 +124,26 @@ Idea: Color lines 1998
 
 
 Copyright 2022"
+
+[node name="HelpPopup" parent="HUD" instance=ExtResource( 2 )]
+visible = false
+__meta__ = {
+"_editor_description_": ""
+}
+Text = "  In 'Lines' game you need to
+assemble a row with 5 fruits 
+of the same type horizontally, 
+vertically or diagonally to get
+scores. 
+  Goal: maximize your score.
+
+  In opposite 'Anti-lines' has
+different goal - you need to 
+fill the field with fruits, but
+it is harder then you may 
+think. Here each line with 3 
+fruits in a row disappear and
+grant you scores. 
+Unfortunately it is not 
+what you need to do.
+  Goal: minimize your score."

@@ -37,30 +37,12 @@ public partial class Main
 
     private void ShowCredentials()
     {
-        this.customTextPopup.Text =  @"
-Developer: Artem Votintcev
-Design: Alexandra Votintceva 
-Game Images: Loading.io
-UI Images: Gameart2d.com
-Idea: Color lines 1998";
-        this.customTextPopup.Show();
+        this.credentialsPopup.Show();
     }
     
     private void ShowHelp()
     {
-        this.customTextPopup.Text =  @"
-  In 'Lines' game you need to assemble a row
-with 5 fruits of the same type horizontally, 
-vertically or diagonally to get scores. 
-  Goal: maximize your score.
-  In opposite 'Anti-lines' has different goal -
-you need to fill the field with fruits, but
-it is harder then you may think. Here each 
-line with 3 fruits in a row disappear and
-grant you scores. Unfortunately it is not 
-what you need to do.
-  Goal: minimize your score.";
-        this.customTextPopup.Show();
+        this.helpPopup.Show();
     }
 
     public void StartGameDone(int gameId)
