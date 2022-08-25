@@ -11,6 +11,9 @@ public partial class CustomTextPopup
     [Export(PropertyHint.MultilineText)] 
     public string Text { get; set; }
 
+    [Signal]
+    public delegate void PopupClosed();
+
     public override void _Ready()
     {
         base._Ready();
@@ -22,6 +25,7 @@ public partial class CustomTextPopup
     private void BackButtonPressed()
     {
         this.Hide();
+        this.EmitSignal(nameof(PopupClosed));
     }
 
     public override void _Process(float delta)

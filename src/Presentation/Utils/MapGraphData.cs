@@ -152,6 +152,7 @@ namespace IsometricGame.Logic.ScriptHelpers
             frontier.Enqueue(new Vector2(x, y));
 
             var visited = new HashSet<Vector2>();
+            visited.Add(new Vector2(x,y));
 
             while (frontier.Count > 0)
             {

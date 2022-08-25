@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using IsometricGame.Presentation.Utils;
 using DodgeTheCreeps.Utils;
 
-[SceneReference("FloodIt.tscn")]
-public partial class FloodIt
+[SceneReference("FloodItGame.tscn")]
+public partial class FloodItGame
 {
     private const int Width = 9;
     private const int Height = 9;
@@ -34,6 +34,17 @@ public partial class FloodIt
         {
             this.currentScore = value;
             this.currentScoreLabel.Text = $"{value}";
+        }
+    }
+
+    private int bestScore = 0;
+    private int BestScore
+    {
+        get => this.bestScore;
+        set
+        {
+            this.bestScore = value;
+            this.bestScoreLabel.Text = $"{value}";
         }
     }
 
@@ -129,16 +140,66 @@ public partial class FloodIt
             return;
         }
 
+        if (fruit.FruitType == this.graph.Map[0, 0].FruitType)
+        {
+            return;
+        }
+
+        if (this.CheckGameOver())
+        {
+            return;
+        }
+
         var area = this.graph.GetArea(0, 0);
         foreach (var cell in area)
         {
             this.graph.Map[(int)cell.x, (int)cell.y].FruitType = fruit.FruitType;
         }
+
         this.CurrentScore++;
+
+
+        if (this.CheckGameOver())
+        {
+            return;
+        }
+
     }
 
     private bool CheckGameOver()
     {
-        return this.graph.GetArea(0, 0).Count > Width * Height;
+        var isGameOver = this.graph.GetArea(0, 0).Count == Width * Height;
+
+        if (isGameOver)
+        {
+            this.gameOverPopup.Show();
+            this.gameOverPopup.Text = $@"
+               Game over
+        
+            
+           your score is {this.CurrentScore}";
+
+            this.BestScore = Math.Min(this.BestScore, this.CurrentScore);
+            this.SaveState();
+        }
+
+        return isGameOver;
+    }
+
+    private void SaveState()
+    {
+        var types = new Fruit.FruitTypes?[Width, Height];
+        for (var x = 0; x < Width; x++)
+            for (var y = 0; y < Height; y++)
+            {
+                types[x, y] = this.graph.Map[x, y]?.FruitType;
+            }
+        GameRepository.Save(new GameRepository.GameState
+        {
+            GameName = "FloodIt",
+            Map = types,
+            CurrentScore = this.CurrentScore,
+            BestScore = this.BestScore,
+        });
     }
 }

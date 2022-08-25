@@ -7,10 +7,10 @@ using IsometricGame.Presentation.Utils;
 [SceneReference("Main.tscn")]
 public partial class Main
 {
-    private IGame[] availableGames = new IGame[]{
-        new AntiLinesGame(),
-        new LinesGame(),
-        new FloodItGame()
+    private Games[] availableGames = new Games[]{
+        Games.Lines,
+        Games.AntiLines,
+        Games.FloodIt,
     };
 
     public override void _Ready()
@@ -25,11 +25,10 @@ public partial class Main
 
         for (int i = 0; i < availableGames.Length; i++)
         {
-            IGame game = availableGames[i];
+            Games game = availableGames[i];
             var button = new Button();
-            button.Text = game.Name;
+            button.Text = game.ToString();
             button.Theme = theme;
-            button.Disabled = !game.IsAvailable;
             button.Connect(CommonSignals.Pressed, this, nameof(StartGameDone), new Godot.Collections.Array { i });
             this.buttonsContainer.AddChild(button);
         }
@@ -47,7 +46,8 @@ public partial class Main
 
     public void StartGameDone(int gameId)
     {
-        var game = availableGames[gameId].BuildScreen();
+        var scene = ResourceLoader.Load<PackedScene>($"res://Presentation/{availableGames[gameId].ToString()}Game.tscn");
+        var game = scene.Instance();
         game.AddToGroup(Groups.Game);
         game.Connect("Close", this, nameof(GameOver));
         this.AddChild(game);
