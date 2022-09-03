@@ -25,7 +25,7 @@ public partial class AntiLinesGame
         this.FillMembers();
     }
 
-    protected override int GetBestScore(int bestScore, int currentScore)
+    protected override int GetBestScoreInternal(int bestScore, int currentScore)
     {
         return Math.Min(bestScore, currentScore);
     }

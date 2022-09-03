@@ -28,7 +28,7 @@ public partial class LinesGame
         this.FillMembers();
     }
 
-    protected override int GetBestScore(int bestScore, int currentScore)
+    protected override int GetBestScoreInternal(int bestScore, int currentScore)
     {
         return Math.Max(bestScore, currentScore);
     }

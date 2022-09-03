@@ -11,17 +11,10 @@ using DodgeTheCreeps.Utils;
 [SceneReference("BaseLinesGame.tscn")]
 public abstract partial class BaseLinesGame
 {
-    protected abstract string GameName{get;}
     protected abstract int LineLength{get;}
     protected abstract int IncreaseMultiplier{get;}
     protected abstract Fruit.FruitTypes[] UsedColors{get;}
-    protected abstract int GetBestScore(int bestScore, int currentScore);
 
-    private const int Width = 9;
-    private const int Height = 9;
-
-    private Random r = new Random();
-    private MapGraphData graph = new MapGraphData(Width, Height);
     private Fruit selectedFruit;
 
     private enum MoveType
@@ -32,144 +25,26 @@ public abstract partial class BaseLinesGame
     private MoveType moveType;
     private bool isReturnMoveType = false;
 
-    private int currentScore = 0;
-    private int CurrentScore
-    {
-        get => this.currentScore;
-        set
-        {
-            this.currentScore = value;
-            this.currentScoreLabel.Text = $"{value}";
-        }
-    }
-
-    private int bestScore = 0;
-    private int BestScore
-    {
-        get => this.bestScore;
-        set
-        {
-            this.bestScore = value;
-            this.bestScoreLabel.Text = $"{value}";
-        }
-    }
-
-    private int multiplier = 1;
-    private int Multiplier
-    {
-        get => multiplier;
-        set
-        {
-            this.multiplier = value;
-            if (value > 1)
-            {
-                this.multiplierLabel.Text = $"x{value}";
-            }
-            else
-            {
-                this.multiplierLabel.Text = string.Empty;
-            }
-        }
-    }
-
-    [Export]
-    public PackedScene FruitScene;
-
-    [Signal]
-    public delegate void Close();
-
     public override void _Ready()
     {
         base._Ready();
         this.FillMembers();
-
-        this.field.Connect(nameof(Field.CellSelected), this, nameof(FieldCellSelected));
-        this.restartButton.Connect(CommonSignals.Pressed, this, nameof(Restart));
-        this.backButton.Connect(CommonSignals.Pressed, this, nameof(Back));
-        this.gameOverPopup.Connect(nameof(CustomTextPopup.PopupClosed), this, nameof(Restart));
     }
 
-    public override void _Process(float delta)
+    protected override void RestartInternal()
     {
-        base._Process(delta);
-
-        this.hUD.Visible = this.Visible;
-    }
-
-    public void Start()
-    {
-        var state = GameRepository.Load(this.GameName);
-        if (state.Map == null)
-        {
-            Restart();
-        }
-        else
-        {
-            Load(state);
-        }
-    }
-
-    private void Back()
-    {
-        this.EmitSignal(nameof(Close));
-        this.SaveState();
-    }
-
-    private void Restart()
-    {
-        this.CurrentScore = 0;
-        this.Multiplier = 1;
-        this.graph.ClearMap();
         this.moveType = MoveType.Drop;
         this.isReturnMoveType = false;
         this.selectedFruit = null;
-        foreach (Fruit fruit in this.GetTree().GetNodesInGroup(Groups.Fruits))
-        {
-            fruit.QueueFree();
-            this.RemoveChild(fruit);
-        }
-
         AddFruitsToStart();
         TurnStart();
     }
 
-    private void Load(GameRepository.GameState state)
+    protected override void LoadInternal(GameRepository.GameState state)
     {
-        this.CurrentScore = state.CurrentScore;
-        this.BestScore = state.BestScore;
-        this.Multiplier = state.Multiplier;
-        this.graph.ClearMap();
         this.moveType = MoveType.Drop;
         this.isReturnMoveType = false;
         this.selectedFruit = null;
-        foreach (Fruit fruit in this.GetTree().GetNodesInGroup(Groups.Fruits))
-        {
-            fruit.QueueFree();
-            this.RemoveChild(fruit);
-        }
-
-        for (var x = 0; x < Width; x++)
-            for (var y = 0; y < Height; y++)
-            {
-                if (!state.Map[x, y].HasValue)
-                {
-                    continue;
-                }
-
-                var position = new Vector2(x, y);
-                var fruit = this.FruitScene.Instance<Fruit>();
-                fruit.FruitType = state.Map[x, y].Value;
-                fruit.Position = this.field.MapToWorld(position) + Vector2.Up * 300;
-                fruit.AddToGroup(Groups.Fruits);
-                fruit.Connect(nameof(Fruit.FruitMoved), this, nameof(FruitMoved));
-                fruit.Connect(nameof(Fruit.FruitClicked), this, nameof(FruitClicked));
-                this.AddChild(fruit);
-
-                this.graph.AddFruit(fruit, position);
-
-                fruit.Drop(this.field.MapToWorld(position));
-            }
-
         AddFruitsToStart();
     }
 
@@ -214,14 +89,9 @@ public abstract partial class BaseLinesGame
         AddFruitsToStart();
     }
 
-    private void FruitClicked(Fruit fruit)
+    protected override void FruitClickedInternal(Fruit fruit)
     {
         if (fruit.IsInGroup(Groups.FruitsAtStart))
-        {
-            return;
-        }
-
-        if (this.GetTree().GetNodesInGroup(Groups.FruitsMoving).Count > 0)
         {
             return;
         }
@@ -231,25 +101,8 @@ public abstract partial class BaseLinesGame
         fruit.SelectFruit();
     }
 
-    private void FruitMoved(Fruit fruit)
+    protected override void FruitMovedInternal(Fruit fruit, List<Fruit> movedFruits)
     {
-        fruit.AddToGroup(Groups.FruitsMoved);
-        if (this.GetTree().GetNodesInGroup(Groups.FruitsMoving).Count != 0)
-        {
-            return;
-        }
-
-        var movedFruits = this.GetTree().GetNodesInGroup(Groups.FruitsMoved);
-        foreach (Fruit movedFruit in movedFruits)
-        {
-            movedFruit.RemoveFromGroup(Groups.FruitsMoved);
-        }
-
-        if (this.CheckGameOver())
-        {
-            return;
-        }
-
         if (isReturnMoveType)
         {
             foreach (Fruit movedFruit in movedFruits)
@@ -297,9 +150,9 @@ public abstract partial class BaseLinesGame
         }
     }
 
-    private void FieldCellSelected(Vector2 cell)
+    protected override void FieldCellSelectedInternal(Vector2 cell)
     {
-        if (this.GetTree().GetNodesInGroup(Groups.FruitsMoving).Count > 0 || this.selectedFruit == null)
+        if (this.selectedFruit == null)
         {
             return;
         }
@@ -316,42 +169,7 @@ public abstract partial class BaseLinesGame
         this.selectedFruit = null;
     }
 
-    private bool CheckGameOver()
-    {
-        var isGameOver = this.graph.Fruits.Count > Width * Height - 3;
-
-        if (isGameOver)
-        {
-            this.gameOverPopup.Show();
-            this.gameOverPopup.Text = $@"
-               Game over
-        
-            
-           your score is {this.CurrentScore}";
-
-            this.BestScore = GetBestScore(this.BestScore, this.CurrentScore);
-            this.SaveState();
-
-        }
-
-        return isGameOver;
-    }
-
-    private void SaveState()
-    {
-        var types = new Fruit.FruitTypes?[Width, Height];
-        for (var x = 0; x < Width; x++)
-            for (var y = 0; y < Height; y++)
-            {
-                types[x, y] = this.graph.Map[x, y]?.FruitType;
-            }
-        GameRepository.Save(new GameRepository.GameState
-        {
-            GameName = this.GameName,
-            Map = types,
-            CurrentScore = this.CurrentScore,
-            BestScore = this.BestScore,
-            Multiplier = this.Multiplier
-        });
+    protected override bool IsGameOver() {
+        return this.graph.Fruits.Count > Width * Height - 3;
     }
 }
