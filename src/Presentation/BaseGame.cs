@@ -6,7 +6,6 @@ using IsometricGame.Logic.ScriptHelpers;
 using BrainAI.Pathfinding.AStar;
 using System.Collections.Generic;
 using IsometricGame.Presentation.Utils;
-using DodgeTheCreeps.Utils;
 
 [SceneReference("BaseGame.tscn")]
 public abstract partial class BaseGame
@@ -147,7 +146,6 @@ public abstract partial class BaseGame
                 fruit.Position = this.field.MapToWorld(position) + Vector2.Up * 300;
                 fruit.AddToGroup(Groups.Fruits);
                 fruit.Connect(nameof(Fruit.FruitMoved), this, nameof(FruitMoved));
-                fruit.Connect(nameof(Fruit.FruitClicked), this, nameof(FruitClicked));
                 this.AddChild(fruit);
 
                 this.graph.AddFruit(fruit, position);
@@ -156,18 +154,6 @@ public abstract partial class BaseGame
             }
 
         LoadInternal(state);
-    }
-
-    protected abstract void FruitClickedInternal(Fruit fruit);
-
-    protected virtual void FruitClicked(Fruit fruit)
-    {
-        if (this.GetTree().GetNodesInGroup(Groups.FruitsMoving).Count > 0)
-        {
-            return;
-        }
-
-        FruitClickedInternal(fruit);
     }
 
     protected abstract void FruitMovedInternal(Fruit fruit, List<Fruit> movedFruits);

@@ -105,10 +105,6 @@ public partial class GroupClickerGame
         this.CurrentScore += Enumerable.Range(1, fruits.Count).Sum();
     }
 
-    protected override void FruitClickedInternal(Fruit fruit)
-    {
-    }
-
     protected override void FruitMovedInternal(Fruit fruit, List<Fruit> movedFruits)
     {
     }
@@ -133,7 +129,6 @@ public partial class GroupClickerGame
                 fruit.FruitType = UsedColors[r.Next(UsedColors.Length)];
                 fruit.Position = this.field.MapToWorld(position) + Vector2.Up * 300;
                 fruit.AddToGroup(Groups.Fruits);
-                fruit.Connect(nameof(Fruit.FruitClicked), this, nameof(FruitClicked));
                 this.AddChild(fruit);
                 this.graph.AddFruit(fruit, position);
 
@@ -150,7 +145,7 @@ public partial class GroupClickerGame
                 {
                     continue;
                 }
-                
+
                 if (this.graph.GetArea(x, y).Count > 2)
                 {
                     return false;

@@ -1,8 +1,6 @@
-using DodgeTheCreeps.Utils;
 using Godot;
 using GodotAnalysers;
 using IsometricGame.Presentation.Utils;
-using System;
 using System.Collections.Generic;
 
 [Tool]
@@ -45,17 +43,12 @@ public partial class Fruit
     }
 
     [Signal]
-    public delegate void FruitClicked(Fruit fruit);
-
-    [Signal]
     public delegate void FruitMoved(Fruit fruit);
 
     public override void _Ready()
     {
         base._Ready();
         this.FillMembers();
-
-        this.clickableArea.Connect(CommonSignals.InputEvent, this, nameof(FruitInput));
     }
 
     public override void _Process(float delta)
@@ -125,16 +118,6 @@ public partial class Fruit
         {
             currentPath.Enqueue(worldMovePath[i]);
         }
-    }
-
-    private void FruitInput(Node node, InputEvent inputEvent, int shapeIndex)
-    {
-        if (!(inputEvent is InputEventScreenTouch mouseEvent) || !mouseEvent.Pressed)
-        {
-            return;
-        }
-
-        this.EmitSignal(nameof(FruitClicked), this);
     }
 
     public void SelectFruit()

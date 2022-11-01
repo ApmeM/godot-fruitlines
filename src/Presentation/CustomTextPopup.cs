@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 using GodotAnalysers;
-using DodgeTheCreeps.Utils;
+using IsometricGame.Presentation.Utils;
 
 [SceneReference("CustomTextPopup.tscn")]
 [Tool]

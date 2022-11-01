@@ -26,19 +26,16 @@ public partial class FloodItGame
 
     protected override void FieldCellSelectedInternal(Vector2 cell)
     {
-    }
-
-    protected override void FruitClickedInternal(Fruit fruit)
-    {
+        var fruit = this.graph.Map[(int)cell.x, (int)cell.y];
         if (fruit.FruitType == this.graph.Map[0, 0].FruitType)
         {
             return;
         }
 
         var area = this.graph.GetArea(0, 0);
-        foreach (var cell in area)
+        foreach (var item in area)
         {
-            this.graph.Map[(int)cell.x, (int)cell.y].FruitType = fruit.FruitType;
+            this.graph.Map[(int)item.x, (int)item.y].FruitType = fruit.FruitType;
         }
 
         this.CurrentScore++;
@@ -73,7 +70,6 @@ public partial class FloodItGame
                 fruit.FruitType = UsedColors[r.Next(UsedColors.Length)];
                 fruit.Position = this.field.MapToWorld(position) + Vector2.Up * 300;
                 fruit.AddToGroup(Groups.Fruits);
-                fruit.Connect(nameof(Fruit.FruitClicked), this, nameof(FruitClicked));
                 this.AddChild(fruit);
                 this.graph.AddFruit(fruit, position);
 
@@ -96,7 +92,6 @@ public partial class FloodItGame
         fruit.FruitType = fruitType;
         fruit.Position = position;
         fruit.AddToGroup(Groups.Fruits);
-        fruit.Connect(nameof(Fruit.FruitClicked), this, nameof(FruitClicked));
         this.AddChild(fruit);
     }
 

@@ -6,14 +6,13 @@ using IsometricGame.Logic.ScriptHelpers;
 using BrainAI.Pathfinding.AStar;
 using System.Collections.Generic;
 using IsometricGame.Presentation.Utils;
-using DodgeTheCreeps.Utils;
 
 [SceneReference("BaseLinesGame.tscn")]
 public abstract partial class BaseLinesGame
 {
-    protected abstract int LineLength{get;}
-    protected abstract int IncreaseMultiplier{get;}
-    protected abstract Fruit.FruitTypes[] UsedColors{get;}
+    protected abstract int LineLength { get; }
+    protected abstract int IncreaseMultiplier { get; }
+    protected abstract Fruit.FruitTypes[] UsedColors { get; }
 
     private Fruit selectedFruit;
 
@@ -63,7 +62,6 @@ public abstract partial class BaseLinesGame
         fruit.AddToGroup(Groups.Fruits);
         fruit.AddToGroup(Groups.FruitsAtStart);
         fruit.Connect(nameof(Fruit.FruitMoved), this, nameof(FruitMoved));
-        fruit.Connect(nameof(Fruit.FruitClicked), this, nameof(FruitClicked));
         this.AddChild(fruit);
     }
 
@@ -87,18 +85,6 @@ public abstract partial class BaseLinesGame
         }
 
         AddFruitsToStart();
-    }
-
-    protected override void FruitClickedInternal(Fruit fruit)
-    {
-        if (fruit.IsInGroup(Groups.FruitsAtStart))
-        {
-            return;
-        }
-
-        this.selectedFruit?.DeselectFruit();
-        this.selectedFruit = fruit;
-        fruit.SelectFruit();
     }
 
     protected override void FruitMovedInternal(Fruit fruit, List<Fruit> movedFruits)
@@ -150,6 +136,16 @@ public abstract partial class BaseLinesGame
 
     protected override void FieldCellSelectedInternal(Vector2 cell)
     {
+        var fruit = this.graph.Map[(int)cell.x, (int)cell.y];
+
+        if (fruit != null)
+        {
+            this.selectedFruit?.DeselectFruit();
+            this.selectedFruit = fruit;
+            this.selectedFruit.SelectFruit();
+            return;
+        }
+
         if (this.selectedFruit == null)
         {
             return;
@@ -167,7 +163,8 @@ public abstract partial class BaseLinesGame
         this.selectedFruit = null;
     }
 
-    protected override bool IsGameOver() {
+    protected override bool IsGameOver()
+    {
         return this.graph.Fruits.Count > Width * Height - 3;
     }
 }
