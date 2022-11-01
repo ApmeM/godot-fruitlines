@@ -52,6 +52,11 @@ public partial class GroupClickerGame
         }
 
         var clickedGroup = this.graph.GetArea((int)cell.x, (int)cell.y);
+        if (clickedGroup.Count < 2)
+        {
+            return;
+        }
+
         foreach (var item in clickedGroup)
         {
             var itemFruit = this.graph.Map[(int)item.x, (int)item.y];
@@ -146,7 +151,7 @@ public partial class GroupClickerGame
                     continue;
                 }
 
-                if (this.graph.GetArea(x, y).Count > 2)
+                if (this.graph.GetArea(x, y).Count >= 2)
                 {
                     return false;
                 }
