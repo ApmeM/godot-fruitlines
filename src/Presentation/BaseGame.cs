@@ -12,8 +12,8 @@ public abstract partial class BaseGame
 {
     protected abstract string GameName{get;}
 
-    protected const int Width = 9;
-    protected const int Height = 9;
+    public const int Width = 9;
+    public const int Height = 9;
 
     protected Random r = new Random();
     protected MapGraphData graph = new MapGraphData(Width, Height);

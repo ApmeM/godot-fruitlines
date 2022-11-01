@@ -36,6 +36,11 @@ public partial class Field
         var localPosition = this.tileMap.ToLocal(position);
         var cell = this.tileMap.WorldToMap(localPosition);
 
+        if (cell.x < 0 || cell.y < 0 || cell.x >= BaseGame.Width || cell.y >= BaseGame.Height)
+        {
+            return;
+        }
+
         EmitSignal(nameof(CellSelected), cell);
     }
 }
