@@ -113,7 +113,6 @@ public abstract partial class BaseLinesGame
             this.moveType = MoveType.Turn;
             this.isReturnMoveType = false;
             this.Multiplier += this.IncreaseMultiplier;
-            this.SaveState();
         }
         else
         {
@@ -144,7 +143,6 @@ public abstract partial class BaseLinesGame
                 {
                     TurnStart();
                     this.Multiplier = 1;
-                    this.SaveState();
                 }
             }
         }

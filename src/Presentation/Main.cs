@@ -11,6 +11,7 @@ public partial class Main
         Games.Lines,
         Games.AntiLines,
         Games.FloodIt,
+        Games.GroupClicker,
     };
 
     public override void _Ready()

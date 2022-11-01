@@ -6,6 +6,7 @@ namespace IsometricGame.Presentation.Utils
     {
         Lines,
         AntiLines,
-        FloodIt
+        FloodIt,
+        GroupClicker,
     }
 }

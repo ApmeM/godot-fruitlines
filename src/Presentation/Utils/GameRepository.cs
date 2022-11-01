@@ -20,25 +20,29 @@ namespace IsometricGame.Presentation.Utils
             saveGame.Store32((uint)state.CurrentScore);
             saveGame.Store32((uint)state.BestScore);
             saveGame.Store32((uint)state.Multiplier);
-            saveGame.Store32((uint)state.Map.GetLength(0));
-            saveGame.Store32((uint)state.Map.GetLength(1));
-            for (var x = 0; x < state.Map.GetLength(0); x++)
-                for (var y = 0; y < state.Map.GetLength(1); y++)
-                {
-                    saveGame.Store8((byte)(state.Map[x, y].HasValue ? 1 : 0));
-                    if (state.Map[x, y].HasValue)
+            saveGame.Store8((byte)(state.Map == null ? 0 : 1));
+            if (state.Map != null)
+            {
+                saveGame.Store32((uint)state.Map.GetLength(0));
+                saveGame.Store32((uint)state.Map.GetLength(1));
+                for (var x = 0; x < state.Map.GetLength(0); x++)
+                    for (var y = 0; y < state.Map.GetLength(1); y++)
                     {
-                        saveGame.Store32((uint)state.Map[x, y]);
+                        saveGame.Store8((byte)(state.Map[x, y].HasValue ? 1 : 0));
+                        if (state.Map[x, y].HasValue)
+                        {
+                            saveGame.Store32((uint)state.Map[x, y]);
+                        }
                     }
-                }
-
+            }
             saveGame.Close();
 
         }
 
         public static GameState Load(string gameName)
         {
-            var result = new GameState{
+            var result = new GameState
+            {
                 GameName = gameName
             };
 
@@ -51,20 +55,23 @@ namespace IsometricGame.Presentation.Utils
             result.CurrentScore = (int)saveGame.Get32();
             result.BestScore = (int)saveGame.Get32();
             result.Multiplier = (int)saveGame.Get32();
-            var width = (int)saveGame.Get32();
-            var height = (int)saveGame.Get32();
-            result.Map = new Fruit.FruitTypes?[width, height];
+            var mapExists = saveGame.Get8() == 1;
+            if (mapExists)
+            {
+                var width = (int)saveGame.Get32();
+                var height = (int)saveGame.Get32();
+                result.Map = new Fruit.FruitTypes?[width, height];
 
-            for (var x = 0; x < width; x++)
-                for (var y = 0; y < height; y++)
-                {
-                    var hasValue = saveGame.Get8() == 1;
-                    if (hasValue)
+                for (var x = 0; x < width; x++)
+                    for (var y = 0; y < height; y++)
                     {
-                        result.Map[x, y] = (Fruit.FruitTypes?)saveGame.Get32();
+                        var hasValue = saveGame.Get8() == 1;
+                        if (hasValue)
+                        {
+                            result.Map[x, y] = (Fruit.FruitTypes?)saveGame.Get32();
+                        }
                     }
-                }
-
+            }
             saveGame.Close();
 
             return result;

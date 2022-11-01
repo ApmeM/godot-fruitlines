@@ -116,6 +116,7 @@ public abstract partial class BaseGame
         }
 
         this.RestartInternal();
+        this.SaveState();
     }
 
     protected abstract void LoadInternal(GameRepository.GameState state);
@@ -184,14 +185,14 @@ public abstract partial class BaseGame
             movedFruit.RemoveFromGroup(Groups.FruitsMoved);
         }
 
-        this.SaveState();
-
         if (this.CheckGameOver())
         {
+            this.ClearState();
             return;
         }
 
         FruitMovedInternal(fruit, movedFruits);
+        this.SaveState();
     }
 
     protected abstract void FieldCellSelectedInternal(Vector2 cell);
@@ -213,19 +214,20 @@ public abstract partial class BaseGame
     {
         var isGameOver = this.IsGameOver();
 
-        if (isGameOver)
+        if (!isGameOver)
         {
-            this.gameOverPopup.Show();
-            this.gameOverPopup.Text = $@"
+            return isGameOver;
+
+        }
+
+        this.gameOverPopup.Show();
+        this.gameOverPopup.Text = $@"
                Game over
         
             
            your score is {this.CurrentScore}";
 
-            this.BestScore = GetBestScoreInternal(this.BestScore, this.CurrentScore);
-            this.SaveState();
-
-        }
+        this.BestScore = GetBestScoreInternal(this.BestScore, this.CurrentScore);
 
         return isGameOver;
     }
@@ -242,6 +244,18 @@ public abstract partial class BaseGame
         {
             GameName = this.GameName,
             Map = types,
+            CurrentScore = this.CurrentScore,
+            BestScore = this.BestScore,
+            Multiplier = this.Multiplier
+        });
+    }
+
+    protected void ClearState()
+    {
+        GameRepository.Save(new GameRepository.GameState
+        {
+            GameName = this.GameName,
+            Map = null,
             CurrentScore = this.CurrentScore,
             BestScore = this.BestScore,
             Multiplier = this.Multiplier

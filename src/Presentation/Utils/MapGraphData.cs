@@ -165,6 +165,11 @@ namespace IsometricGame.Logic.ScriptHelpers
                         continue;
                     }
 
+                    if (Map[(int)next.x, (int)next.y] == null)
+                    {
+                        continue;
+                    }
+
                     if (Map[(int)next.x, (int)next.y].FruitType != color)
                     {
                         continue;
