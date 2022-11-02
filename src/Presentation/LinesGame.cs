@@ -1,7 +1,8 @@
 using Godot;
 using GodotAnalysers;
+using IsometricGame.Presentation.Utils;
 using System;
-
+using System.Collections.Generic;
 
 [SceneReference("LinesGame.tscn")]
 public partial class LinesGame
@@ -26,6 +27,38 @@ public partial class LinesGame
     {
         base._Ready();
         this.FillMembers();
+    }
+
+    protected override void FruitMovedInternal(List<Fruit> movedFruits)
+    {
+        base.FruitMovedInternal(movedFruits);
+
+        if (this.Multiplier == 3)
+        {
+            AchievementRepository.UnlockAchievement(Achievement.LinesMultiply3);
+        }
+        if (this.Multiplier == 5)
+        {
+            AchievementRepository.UnlockAchievement(Achievement.LinesMultiply5);
+        }
+        if (this.Multiplier == 7)
+        {
+            AchievementRepository.UnlockAchievement(Achievement.LinesMultiply7);
+        }
+
+        if (movedFruits.Count > 5)
+        {
+            AchievementRepository.UnlockAchievement(Achievement.LinesRow6);
+        }
+        if (movedFruits.Count > 6)
+        {
+            AchievementRepository.UnlockAchievement(Achievement.LinesRow7);
+        }
+        if (movedFruits.Count > 8)
+        {
+            AchievementRepository.UnlockAchievement(Achievement.LinesRow9);
+        }
+
     }
 
     protected override int GetBestScoreInternal(int bestScore, int currentScore)

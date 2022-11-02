@@ -43,7 +43,7 @@ public partial class FloodItGame
         this.CheckGameOver();
     }
 
-    protected override void FruitMovedInternal(Fruit fruit, List<Fruit> movedFruits)
+    protected override void FruitMovedInternal(List<Fruit> movedFruits)
     {
     }
 

@@ -10,7 +10,7 @@ using IsometricGame.Presentation.Utils;
 [SceneReference("BaseGame.tscn")]
 public abstract partial class BaseGame
 {
-    protected abstract string GameName{get;}
+    protected abstract string GameName { get; }
 
     public const int Width = 9;
     public const int Height = 9;
@@ -156,7 +156,7 @@ public abstract partial class BaseGame
         LoadInternal(state);
     }
 
-    protected abstract void FruitMovedInternal(Fruit fruit, List<Fruit> movedFruits);
+    protected abstract void FruitMovedInternal(List<Fruit> movedFruits);
     protected void FruitMoved(Fruit fruit)
     {
         fruit.AddToGroup(Groups.FruitsMoved);
@@ -177,7 +177,7 @@ public abstract partial class BaseGame
             return;
         }
 
-        FruitMovedInternal(fruit, movedFruits);
+        FruitMovedInternal(movedFruits);
         this.SaveState();
     }
 
@@ -185,7 +185,7 @@ public abstract partial class BaseGame
 
     private void FieldCellSelected(Vector2 cell)
     {
-        if (this.GetTree().GetNodesInGroup(Groups.FruitsMoving).Count > 0 )
+        if (this.GetTree().GetNodesInGroup(Groups.FruitsMoving).Count > 0)
         {
             return;
         }

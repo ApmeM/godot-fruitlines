@@ -107,10 +107,20 @@ public partial class GroupClickerGame
             }
         }
 
+        if (this.graph.Map.Cast<Fruit>().All(a => a?.FruitType != ((Fruit)fruits[0]).FruitType))
+        {
+            AchievementRepository.UnlockAchievement(Achievement.GroupRemoveAllType);
+        }
+
+        if (fruits.Count >= 10)
+        {
+            AchievementRepository.UnlockAchievement(Achievement.GroupRemove10);
+        }
+
         this.CurrentScore += Enumerable.Range(1, fruits.Count).Sum();
     }
 
-    protected override void FruitMovedInternal(Fruit fruit, List<Fruit> movedFruits)
+    protected override void FruitMovedInternal(List<Fruit> movedFruits)
     {
     }
 
@@ -143,6 +153,8 @@ public partial class GroupClickerGame
 
     protected override bool IsGameOver()
     {
+        var clearedAll = true;
+
         for (var x = 0; x < Width; x++)
             for (var y = 0; y < Height; y++)
             {
@@ -151,11 +163,20 @@ public partial class GroupClickerGame
                     continue;
                 }
 
+                clearedAll = false;
+
                 if (this.graph.GetArea(x, y).Count >= 2)
                 {
                     return false;
                 }
             }
+
+        if (clearedAll)
+        {
+            AchievementRepository.UnlockAchievement(Achievement.GroupClearAll);
+            this.CurrentScore = (int)(this.CurrentScore * 1.5);
+        }
+
         return true;
     }
 }

@@ -1,5 +1,6 @@
 using Godot;
 using GodotAnalysers;
+using IsometricGame.Presentation.Utils;
 using System;
 
 
@@ -27,6 +28,20 @@ public partial class AntiLinesGame
 
     protected override int GetBestScoreInternal(int bestScore, int currentScore)
     {
-        return Math.Min(bestScore, currentScore);
+        var newBest = currentScore == 0 ? bestScore : Math.Min(bestScore, currentScore);
+
+        if (newBest <= 90)
+        {
+            AchievementRepository.UnlockAchievement(Achievement.AntilinesScore90);
+        }
+        if (newBest <= 30)
+        {
+            AchievementRepository.UnlockAchievement(Achievement.AntilinesScore30);
+        }
+        if (newBest <= 9)
+        {
+            AchievementRepository.UnlockAchievement(Achievement.AntilinesScore9);
+        }
+        return newBest;
     }
 }
