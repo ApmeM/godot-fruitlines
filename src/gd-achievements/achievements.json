@@ -1,0 +1,62 @@
+{
+  "LinesMultiply3": {
+    "name": "ScoLines multiplier 3",
+    "description": "Easy: Lines multiplier reached 3!",
+    "icon_path": "res://assets/Achivements/LinesMultiply3.png"
+  },
+  "LinesMultiply5": {
+    "name": "ScoLines multiplier 5",
+    "description": "Hard: Lines multiplier reached 5!",
+    "icon_path": "res://assets/Achivements/LinesMultiply5.png"
+  },
+  "LinesMultiply7": {
+    "name": "ScoLines multiplier 7",
+    "description": "Impossible: Lines multiplier reached 7!",
+    "icon_path": "res://assets/Achivements/LinesMultiply7.png"
+  },
+  "LinesRow6": {
+    "name": "Lines row of 6",
+    "description": "Easy: Lines row contains 6 fruits!",
+    "icon_path": "res://assets/Achivements/LinesRow6.png"
+  },
+  "LinesRow7": {
+    "name": "Lines row of 7",
+    "description": "Hard: Lines row contains 7 fruits!",
+    "icon_path": "res://assets/Achivements/LinesRow7.png"
+  },
+  "LinesRow9": {
+    "name": "Lines row of 9",
+    "description": "Impossible: Lines row contains 9 fruits!",
+    "icon_path": "res://assets/Achivements/LinesRow9.png"
+  },
+  "AntilinesScore90": {
+    "name": "Score 90",
+    "description": "Easy: Antilines score less then 90!",
+    "icon_path": "res://assets/Achivements/AntilinesScore90.png"
+  },
+  "AntilinesScore30": {
+    "name": "Score 30",
+    "description": "Hard: Antilines score less then 30!",
+    "icon_path": "res://assets/Achivements/AntilinesScore30.png"
+  },
+  "AntilinesScore9": {
+    "name": "Score 9",
+    "description": "Impossible: Antilines score less then 9!",
+    "icon_path": "res://assets/Achivements/AntilinesScore9.png"
+  },
+  "GroupRemove10": {
+    "name": "Remove group of 10",
+    "description": "Easy: Group with at least 10 fruits removed!",
+    "icon_path": "res://assets/Achivements/GroupRemove10.png"
+  },
+  "GroupRemoveAllType": {
+    "name": "Remove all of a kind",
+    "description": "Hard: Remove all fruits of a type!",
+    "icon_path": "res://assets/Achivements/GroupRemoveAllType.png"
+  },
+  "GroupClearAll": {
+    "name": "Remove all fruits",
+    "description": "Impossible: Group clicker field cleared!",
+    "icon_path": "res://assets/Achivements/GroupClearAll.png"
+  }
+}

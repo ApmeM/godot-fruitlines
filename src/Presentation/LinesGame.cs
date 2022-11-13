@@ -7,6 +7,8 @@ using System.Collections.Generic;
 [SceneReference("LinesGame.tscn")]
 public partial class LinesGame
 {
+    private AchievementManager achievementManager;
+
     protected override int LineLength => 5;
 
     protected override int IncreaseMultiplier => 1;
@@ -27,6 +29,7 @@ public partial class LinesGame
     {
         base._Ready();
         this.FillMembers();
+        this.achievementManager = GetNode<AchievementManager>("/root/AchievementManager");
     }
 
     protected override void FruitMovedInternal(List<Fruit> movedFruits)
@@ -35,28 +38,28 @@ public partial class LinesGame
 
         if (this.Multiplier == 3)
         {
-            AchievementRepository.UnlockAchievement(Achievement.LinesMultiply3);
+            achievementManager.UnlockAchievement(Achievements.LinesMultiply3.ToString());
         }
         if (this.Multiplier == 5)
         {
-            AchievementRepository.UnlockAchievement(Achievement.LinesMultiply5);
+            achievementManager.UnlockAchievement(Achievements.LinesMultiply5.ToString());
         }
         if (this.Multiplier == 7)
         {
-            AchievementRepository.UnlockAchievement(Achievement.LinesMultiply7);
+            achievementManager.UnlockAchievement(Achievements.LinesMultiply7.ToString());
         }
 
         if (movedFruits.Count > 5)
         {
-            AchievementRepository.UnlockAchievement(Achievement.LinesRow6);
+            achievementManager.UnlockAchievement(Achievements.LinesRow6.ToString());
         }
         if (movedFruits.Count > 6)
         {
-            AchievementRepository.UnlockAchievement(Achievement.LinesRow7);
+            achievementManager.UnlockAchievement(Achievements.LinesRow7.ToString());
         }
         if (movedFruits.Count > 8)
         {
-            AchievementRepository.UnlockAchievement(Achievement.LinesRow9);
+            achievementManager.UnlockAchievement(Achievements.LinesRow9.ToString());
         }
 
     }

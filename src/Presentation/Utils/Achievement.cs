@@ -1,6 +1,6 @@
 namespace IsometricGame.Presentation.Utils
 {
-    public enum Achievement
+    public enum Achievements
     {
         LinesMultiply3,
         LinesMultiply5,

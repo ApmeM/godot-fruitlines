@@ -22,6 +22,10 @@ as well as be occluded when standing in front or behind them."
 run/main_scene="res://Presentation/Main.tscn"
 config/icon="res://assets/Icon.png"
 
+[autoload]
+
+AchievementManager="*res://gd-achievements/AchievementManager.cs"
+
 [display]
 
 window/size/width=480
@@ -31,9 +35,17 @@ window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PoolStringArray(  )
+
 [gdnative]
 
 singletons=[  ]
+
+[global]
+
+android=false
 
 [image_loader]
 
