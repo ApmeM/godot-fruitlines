@@ -46,7 +46,7 @@ namespace IsometricGame.Presentation.Utils
             EnsureAchievementsLoaded();
             if (!achievements.ContainsKey(key))
             {
-                GD.PrintErr($"AchievementSystem Error: Attempt to get an achievement on {key}, key doesn't exist.");
+                GD.PrintErr($"Achievement System: Attempt to get an achievement on {key}, key doesn't exist.");
                 return false;
             }
 
@@ -100,10 +100,11 @@ namespace IsometricGame.Presentation.Utils
 
             if (!userFileJson.FileExists(ACHIEVEMENTS_DATA))
             {
-                GD.Print("Achievement System Error: Can't open achievements data. It doesn't exists on device");
+                GD.PrintErr("Achievement System: Can't open achievements data. It doesn't exists on device");
                 return;
             }
 
+            GD.Print("Achievement System: Saving achievements  " + string.Join(", ", data.Keys));
             userFileJson.Open(ACHIEVEMENTS_DATA, File.ModeFlags.Write);
             userFileJson.StoreString(JsonConvert.SerializeObject(data));
             userFileJson.Close();
@@ -150,8 +151,27 @@ namespace IsometricGame.Presentation.Utils
 
         private Dictionary<string, AchievementItem> MergeDefinitionAndData(Dictionary<string, AchievementItem> definition, Dictionary<string, AchievementItem> data)
         {
-            GD.Print("Loaded: " + string.Join(", ", definition.Keys));
-            return definition;
+            GD.Print("Achievement System: Loading achievements " + string.Join(", ", definition.Keys));
+            if (data == null || data.Count == 0)
+            {
+                return definition;
+            }
+
+            var toDelete = data.Keys.Except(definition.Keys).ToList();
+            GD.Print("Achievement System: Obsolete achievements removed" + string.Join(", ", toDelete));
+            foreach (var item in toDelete)
+            {
+                data.Remove(item);
+            }
+
+            var toInsert = definition.Keys.Except(data.Keys).ToList();
+            GD.Print("Achievement System: New achievements added " + string.Join(", ", toInsert));
+            foreach (var item in toInsert)
+            {
+                data[item] = definition[item];
+            }
+
+            return data;
         }
     }
 }

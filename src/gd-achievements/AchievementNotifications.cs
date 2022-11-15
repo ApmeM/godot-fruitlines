@@ -60,7 +60,7 @@ public partial class AchievementNotifications
 
     public async void CreateAchievementPanel(Achievement data)
     {
-        GD.Print($"AchievementSystem: Show achievement '{data.Name}'");
+        GD.Print($"Achievement System: Show achievement '{data.Name}'");
 
         var notification_instance = (AchievementNotification)AchievementNotificationScene.Instance();
         AddChild(notification_instance);
