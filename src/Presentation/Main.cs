@@ -38,9 +38,18 @@ public partial class Main
     {
         this.credentialsPopup.Show();
     }
-    
+
     private void ShowHelp()
     {
+        var am = GetNode<AchievementNotifications>("/root/Main/AchievementNotifications");
+        try
+        {
+            am.UnlockAchievement(Achievements.LinesRow6.ToString());
+        }
+        catch (Exception ex)
+        {
+            this.helpPopup.Text = ex.Message;
+        }
         this.helpPopup.Show();
     }
 

@@ -22,10 +22,6 @@ as well as be occluded when standing in front or behind them."
 run/main_scene="res://Presentation/Main.tscn"
 config/icon="res://assets/Icon.png"
 
-[autoload]
-
-AchievementManager="*res://gd-achievements/AchievementManager.cs"
-
 [display]
 
 window/size/width=480

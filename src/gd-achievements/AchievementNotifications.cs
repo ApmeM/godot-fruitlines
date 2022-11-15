@@ -1,19 +1,10 @@
 using Godot;
 using GodotAnalysers;
+using IsometricGame.Presentation.Utils;
 
 [SceneReference("AchievementNotification.tscn")]
 public partial class AchievementNotifications
 {
-    [Export]
-    public float ShowTime = 4.7f;
-    [Export]
-    public float HideTime = 1.5f;
-    [Export]
-    AudioStream GlobalSound = ResourceLoader.Load<AudioStream>("res://gd-achievements/resources/sounds/achievement_earned.wav");
-
-    [Export]
-    public float GlobalSoundVolume = -20.0f;
-
     public enum GROW_DIRECTIONS
     {
         UP,
@@ -28,17 +19,27 @@ public partial class AchievementNotifications
         BOTTOM_LEFT,
         BOTTOM_RIGHT,
     }
+
+
+    [Export]
+    public float ShowTime = 4.7f;
+    [Export]
+    public float HideTime = 1.5f;
+    [Export]
+    AudioStream GlobalSound = ResourceLoader.Load<AudioStream>("res://gd-achievements/resources/sounds/achievement_earned.wav");
+    [Export]
+    public float GlobalSoundVolume = -20.0f;
     [Export]
     public GROW_DIRECTIONS grow_direction = GROW_DIRECTIONS.DOWN;
     [Export]
     public POSITIONS position = POSITIONS.TOP_LEFT;
 
+    private IAchievementRepository achievementRepository = new LocalAchievementRepository();
     private int achievementCount = 0;
     private AudioStreamPlayer soundNode = new AudioStreamPlayer();
+    private PackedScene AchievementNotificationScene = ResourceLoader.Load<PackedScene>("res://gd-achievements/AchievementNotification.tscn");
 
-    PackedScene AchievementNotificationScene = ResourceLoader.Load<PackedScene>("res://gd-achievements/AchievementNotification.tscn");
-
-    public void InitSoundNode()
+    private void InitSoundNode()
     {
         soundNode.Stream = GlobalSound;
         soundNode.VolumeDb = GlobalSoundVolume;
@@ -49,7 +50,6 @@ public partial class AchievementNotifications
     {
         InitSoundNode();
 
-        GetNode<AchievementManager>("/root/AchievementManager").Connect(nameof(AchievementManager.AchievementUnlocked), this, nameof(CreateAchievementPanel));
         SetAnchorsPreset(LayoutPreset.Wide, false);
 
         MarginTop = 0;
@@ -58,7 +58,28 @@ public partial class AchievementNotifications
         MarginRight = 0;
     }
 
-    public async void CreateAchievementPanel(Achievement data)
+    public void ProgressAchievement(string key, int progress)
+    {
+        ProcessAchievement(key, achievementRepository.ProgressAchievement(key, progress));
+    }
+
+    public void UnlockAchievement(string key)
+    {
+        ProcessAchievement(key, achievementRepository.UnlockAchievement(key));
+    }
+
+    private void ProcessAchievement(string key, bool isOperationSuccess)
+    {
+        if (!isOperationSuccess)
+        {
+            return;
+        }
+
+        var data = achievementRepository.GetAchievement(key);
+        CreateAchievementPanel(data);
+    }
+
+    private async void CreateAchievementPanel(Achievement data)
     {
         GD.Print($"Achievement System: Show achievement '{data.Name}'");
 

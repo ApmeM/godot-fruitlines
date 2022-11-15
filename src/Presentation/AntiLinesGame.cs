@@ -7,7 +7,7 @@ using System;
 [SceneReference("AntiLinesGame.tscn")]
 public partial class AntiLinesGame
 {
-    private AchievementManager achievementManager;
+    private AchievementNotifications achievementNotifications;
 
     protected override int LineLength => 3;
 
@@ -26,7 +26,7 @@ public partial class AntiLinesGame
     {
         base._Ready();
         this.FillMembers();
-        this.achievementManager = GetNode<AchievementManager>("/root/AchievementManager");
+        this.achievementNotifications = GetNode<AchievementNotifications>("/root/Main/AchievementNotifications");
     }
 
     protected override int GetBestScoreInternal(int bestScore, int currentScore)
@@ -35,15 +35,15 @@ public partial class AntiLinesGame
 
         if (newBest <= 90)
         {
-            achievementManager.UnlockAchievement(Achievements.AntilinesScore90.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.AntilinesScore90.ToString());
         }
         if (newBest <= 30)
         {
-            achievementManager.UnlockAchievement(Achievements.AntilinesScore30.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.AntilinesScore30.ToString());
         }
         if (newBest <= 9)
         {
-            achievementManager.UnlockAchievement(Achievements.AntilinesScore9.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.AntilinesScore9.ToString());
         }
         return newBest;
     }

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 [SceneReference("LinesGame.tscn")]
 public partial class LinesGame
 {
-    private AchievementManager achievementManager;
+    private AchievementNotifications achievementNotifications;
 
     protected override int LineLength => 5;
 
@@ -29,7 +29,7 @@ public partial class LinesGame
     {
         base._Ready();
         this.FillMembers();
-        this.achievementManager = GetNode<AchievementManager>("/root/AchievementManager");
+        this.achievementNotifications = GetNode<AchievementNotifications>("/root/Main/AchievementNotifications");
     }
 
     protected override void FruitMovedInternal(List<Fruit> movedFruits)
@@ -38,28 +38,28 @@ public partial class LinesGame
 
         if (this.Multiplier == 3)
         {
-            achievementManager.UnlockAchievement(Achievements.LinesMultiply3.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.LinesMultiply3.ToString());
         }
         if (this.Multiplier == 5)
         {
-            achievementManager.UnlockAchievement(Achievements.LinesMultiply5.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.LinesMultiply5.ToString());
         }
         if (this.Multiplier == 7)
         {
-            achievementManager.UnlockAchievement(Achievements.LinesMultiply7.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.LinesMultiply7.ToString());
         }
 
         if (movedFruits.Count > 5)
         {
-            achievementManager.UnlockAchievement(Achievements.LinesRow6.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.LinesRow6.ToString());
         }
         if (movedFruits.Count > 6)
         {
-            achievementManager.UnlockAchievement(Achievements.LinesRow7.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.LinesRow7.ToString());
         }
         if (movedFruits.Count > 8)
         {
-            achievementManager.UnlockAchievement(Achievements.LinesRow9.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.LinesRow9.ToString());
         }
 
     }

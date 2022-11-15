@@ -16,13 +16,13 @@ public partial class GroupClickerGame
                 Fruit.FruitTypes.Lemon,
                 Fruit.FruitTypes.Pear,
             };
-    private AchievementManager achievementManager;
+    private AchievementNotifications achievementNotifications;
     
     public override void _Ready()
     {
         base._Ready();
         this.FillMembers();
-        this.achievementManager = GetNode<AchievementManager>("/root/AchievementManager");
+        this.achievementNotifications = GetNode<AchievementNotifications>("/root/Main/AchievementNotifications");
     }
 
     protected override void FieldCellSelectedInternal(Vector2 cell)
@@ -111,12 +111,12 @@ public partial class GroupClickerGame
 
         if (this.graph.Map.Cast<Fruit>().All(a => a?.FruitType != ((Fruit)fruits[0]).FruitType))
         {
-            achievementManager.UnlockAchievement(Achievements.GroupRemoveAllType.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.GroupRemoveAllType.ToString());
         }
 
         if (fruits.Count >= 10)
         {
-            achievementManager.UnlockAchievement(Achievements.GroupRemove10.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.GroupRemove10.ToString());
         }
 
         this.CurrentScore += Enumerable.Range(1, fruits.Count).Sum();
@@ -175,7 +175,7 @@ public partial class GroupClickerGame
 
         if (clearedAll)
         {
-            achievementManager.UnlockAchievement(Achievements.GroupClearAll.ToString());
+            achievementNotifications.UnlockAchievement(Achievements.GroupClearAll.ToString());
             this.CurrentScore = (int)(this.CurrentScore * 1.5);
         }
 
