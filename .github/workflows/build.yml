@@ -31,15 +31,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup nuget
-        uses: nuget/setup-nuget@v1
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
         with:
-          nuget-version: 'latest'
+          dotnet-version: 2.2.108
+          source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Restore packages with nuget
+      - name: Restore packages
         run: |
-          nuget sources add -Name github -Source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json -UserName ${{ github.repository_owner }} -Password ${{secrets.GITHUB_TOKEN}}
-          nuget restore "./src/Isometric Game.sln"
+          dotnet restore "./src/Isometric Game.sln"
 
       - name: Export game
         uses: firebelley/godot-export@v3.0.0
