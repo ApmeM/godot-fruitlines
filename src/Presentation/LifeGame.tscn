@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Presentation/LifeGame.cs" type="Script" id=1]
+[ext_resource path="res://Presentation/BaseGame.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/Buttons.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 116, 804, 215, 230 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 363, 804, 215, 230 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 631, 804, 215, 230 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 116, 2367, 215, 230 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 363, 2367, 215, 230 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 631, 2367, 215, 230 )
+
+[node name="BaseGame" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+
+[node name="StartPauseButtonMargin" type="MarginContainer" parent="HUD/BottomButonsMargin/BottomButtonsContainer" index="2"]
+margin_left = 196.0
+margin_right = 290.0
+margin_bottom = 64.0
+custom_constants/margin_left = 30
+
+[node name="StartButton" type="TextureButton" parent="HUD/BottomButonsMargin/BottomButtonsContainer/StartPauseButtonMargin" index="0"]
+margin_left = 30.0
+margin_right = 94.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+rect_pivot_offset = Vector2( 14, 30 )
+keep_pressed_outside = true
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_disabled = SubResource( 3 )
+expand = true
+stretch_mode = 4
+
+[node name="PauseButton" type="TextureButton" parent="HUD/BottomButonsMargin/BottomButtonsContainer/StartPauseButtonMargin" index="1"]
+visible = false
+margin_left = 30.0
+margin_right = 94.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+rect_pivot_offset = Vector2( 14, 30 )
+keep_pressed_outside = true
+texture_normal = SubResource( 4 )
+texture_pressed = SubResource( 5 )
+texture_disabled = SubResource( 6 )
+expand = true
+stretch_mode = 4
+
+[node name="Timer" type="Timer" parent="." index="3"]
+wait_time = 0.5

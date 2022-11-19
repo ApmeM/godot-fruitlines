@@ -6,12 +6,12 @@
   <ItemGroup>
     <PackageReference Include="BrainAI" Version="2.3.0" />
     <PackageReference Include="FateRandom" Version="1.0.0" />
-    <PackageReference Include="GodotAnalysers" Version="1.4.0">
+    <PackageReference Include="GodotAnalysers" Version="1.5.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="GodotAnalysersAttribute" Version="1.4.0" />
-    <PackageReference Include="MazeGenerators" Version="2.3.0" />
+    <PackageReference Include="GodotAnalysersAttribute" Version="1.5.0" />
+    <PackageReference Include="MazeGenerators" Version="2.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 </Project>

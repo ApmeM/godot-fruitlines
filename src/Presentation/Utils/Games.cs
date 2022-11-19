@@ -8,5 +8,6 @@ namespace IsometricGame.Presentation.Utils
         AntiLines,
         FloodIt,
         GroupClicker,
+        Life,
     }
 }
