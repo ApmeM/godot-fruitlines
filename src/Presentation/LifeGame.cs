@@ -54,7 +54,7 @@ public partial class LifeGame
         }
 
         RestartInternal();
-        
+
         for (var x = 0; x < Width; x++)
         {
             for (var y = 0; y < Height; y++)
@@ -80,7 +80,7 @@ public partial class LifeGame
             fruit.QueueFree();
         }
 
-        fluent.Life(1, 1, 0);
+        fluent.Life(1, 1, 0, (n) => n == 3, (n) => n < 3 || n > 4);
 
         for (var x = 0; x < Width; x++)
         {
