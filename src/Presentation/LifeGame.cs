@@ -16,6 +16,7 @@ public partial class LifeGame
             };
     private AchievementNotifications achievementNotifications;
     private Fluent fluent;
+    private Random random = new Random();
 
     public override void _Ready()
     {
@@ -24,6 +25,7 @@ public partial class LifeGame
         this.achievementNotifications = GetNode<AchievementNotifications>("/root/Main/AchievementNotifications");
         this.startButton.Connect(CommonSignals.Pressed, this, nameof(StartLife));
         this.pauseButton.Connect(CommonSignals.Pressed, this, nameof(StopLife));
+        this.randomButton.Connect(CommonSignals.Pressed, this, nameof(RandomLife));
         this.timer.Connect(CommonSignals.Timeout, this, nameof(TickLife));
 
         RestartInternal();
@@ -41,6 +43,33 @@ public partial class LifeGame
         this.startButton.Visible = true;
         this.pauseButton.Visible = false;
         this.timer.Stop();
+    }
+
+    private void RandomLife()
+    {
+        var fruits = this.GetTree().GetNodesInGroup(Groups.Fruits);
+        foreach (Node fruit in fruits)
+        {
+            fruit.QueueFree();
+        }
+
+        RestartInternal();
+        
+        for (var x = 0; x < Width; x++)
+        {
+            for (var y = 0; y < Height; y++)
+            {
+                if (random.NextDouble() > 0.5)
+                {
+                    var fruit = this.FruitScene.Instance<Fruit>();
+                    fruit.FruitType = UsedColors[r.Next(UsedColors.Length)];
+                    fruit.Position = this.field.MapToWorld(new Godot.Vector2(x, y));
+                    fruit.AddToGroup(Groups.Fruits);
+                    this.AddChild(fruit);
+                    this.fluent.result.Paths[x, y] = 1;
+                }
+            }
+        }
     }
 
     private void TickLife()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Presentation/LifeGame.cs" type="Script" id=1]
 [ext_resource path="res://Presentation/BaseGame.tscn" type="PackedScene" id=2]
@@ -34,6 +34,21 @@ flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 631, 2367, 215, 230 )
 
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 116, 4451, 215, 230 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 363, 4451, 215, 230 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 631, 4451, 215, 230 )
+
 [node name="BaseGame" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 
@@ -67,6 +82,25 @@ keep_pressed_outside = true
 texture_normal = SubResource( 4 )
 texture_pressed = SubResource( 5 )
 texture_disabled = SubResource( 6 )
+expand = true
+stretch_mode = 4
+
+[node name="RandomButtonMargin" type="MarginContainer" parent="HUD/BottomButonsMargin/BottomButtonsContainer" index="3"]
+margin_left = 294.0
+margin_right = 388.0
+margin_bottom = 64.0
+custom_constants/margin_left = 30
+
+[node name="RandomButton" type="TextureButton" parent="HUD/BottomButonsMargin/BottomButtonsContainer/RandomButtonMargin" index="0"]
+margin_left = 30.0
+margin_right = 94.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+rect_pivot_offset = Vector2( 14, 30 )
+keep_pressed_outside = true
+texture_normal = SubResource( 7 )
+texture_pressed = SubResource( 8 )
+texture_disabled = SubResource( 9 )
 expand = true
 stretch_mode = 4
 
