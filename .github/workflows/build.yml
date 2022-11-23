@@ -27,46 +27,38 @@ jobs:
     name: Export Game Job
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v3.1.0
         with:
           fetch-depth: 0
 
       - name: Setup dotnet
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 2.2.108
           source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v3
-        with:
-          java-version: 8
-          distribution: 'temurin'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-
       - name: Restore packages
         run: |
           dotnet restore "./src/Isometric Game.sln"
 
       - name: Export game
-        uses: firebelley/godot-export@v3.0.0
+        id: export
+        uses: firebelley/godot-export@v4.4.0
         with:
-          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/3.4.2/mono/Godot_v3.4.2-stable_mono_linux_headless_64.zip
-          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/3.4.2/mono/Godot_v3.4.2-stable_mono_export_templates.tpz
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/3.5.1/mono/Godot_v3.5.1-stable_mono_linux_headless_64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/3.5.1/mono/Godot_v3.5.1-stable_mono_export_templates.tpz
           relative_project_path: ./src/
-          relative_export_path: ./build/
-          create_release: false
+          export_debug: true
+          use_preset_export_path: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./build/HTML5
+          path: ${{ steps.export.outputs.build_directory }}/HTML5
 
   deploy:
     needs: build
