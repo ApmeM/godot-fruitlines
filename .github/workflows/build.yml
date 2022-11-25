@@ -55,10 +55,34 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Upload artifact
+      - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: ${{ steps.export.outputs.build_directory }}/HTML5
+
+      - name: Upload html artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: html5
+          path: ${{ steps.export.outputs.build_directory }}/HTML5
+
+      - name: Upload android artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: android
+          path: ${{ steps.export.outputs.build_directory }}/Android
+
+      - name: Upload windows artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows
+          path: ${{ steps.export.outputs.build_directory }}/Windows Desktop
+
+      - name: Upload linux x11 artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux
+          path: ${{ steps.export.outputs.build_directory }}/LinuxX11
 
   deploy:
     needs: build
