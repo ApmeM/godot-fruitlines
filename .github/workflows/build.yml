@@ -43,11 +43,13 @@ jobs:
         run: |
           dotnet restore "./src/Isometric Game.sln"
 
-      - name: Update presets config with release password
+      - name: Update presets config
         env:
           RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
         run: |
           sed -i "s/RELEASE_KEYSTORE_PASSWORD_PLACEHOLDER/$RELEASE_KEYSTORE_PASSWORD/" ./src/export_presets.cfg 
+          sed -i "s/version\/code=1/version\/code=$GITHUB_RUN_NUMBER/" ./src/export_presets.cfg 
+          sed -i "s/version\/name=\"1.0.0\"/version\/name=\"1.$GITHUB_RUN_NUMBER.0\"/" ./src/export_presets.cfg 
 
       - name: Export game
         id: export
