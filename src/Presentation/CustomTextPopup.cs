@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 using GodotAnalysers;
-using IsometricGame.Presentation.Utils;
+using Antilines.Presentation.Utils;
 
 [SceneReference("CustomTextPopup.tscn")]
 [Tool]

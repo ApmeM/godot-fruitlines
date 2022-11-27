@@ -1,5 +1,5 @@
 using Godot;
-using IsometricGame.Presentation.Utils;
+using Antilines.Presentation.Utils;
 
 public interface IAchievementRepository
 {

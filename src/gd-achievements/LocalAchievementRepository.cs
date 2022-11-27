@@ -4,7 +4,7 @@ using System.Linq;
 using Godot;
 using Newtonsoft.Json;
 
-namespace IsometricGame.Presentation.Utils
+namespace Antilines.Presentation.Utils
 {
     public class LocalAchievementRepository : IAchievementRepository
     {

@@ -2,10 +2,10 @@ using Godot;
 using GodotAnalysers;
 using System;
 using System.Linq;
-using IsometricGame.Logic.ScriptHelpers;
+using Antilines.Logic.ScriptHelpers;
 using BrainAI.Pathfinding.AStar;
 using System.Collections.Generic;
-using IsometricGame.Presentation.Utils;
+using Antilines.Presentation.Utils;
 
 [SceneReference("BaseLinesGame.tscn")]
 public abstract partial class BaseLinesGame

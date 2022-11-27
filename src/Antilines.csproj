@@ -1,7 +1,7 @@
 <Project Sdk="Godot.NET.Sdk/3.3.0">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <RootNamespace>IsometricGame</RootNamespace>
+    <RootNamespace>Antilines</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BrainAI" Version="2.3.0" />

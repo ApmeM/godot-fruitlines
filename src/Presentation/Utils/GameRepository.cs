@@ -1,6 +1,6 @@
 using Godot;
 
-namespace IsometricGame.Presentation.Utils
+namespace Antilines.Presentation.Utils
 {
     public class GameRepository
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using GodotAnalysers;
-using IsometricGame.Presentation.Utils;
+using Antilines.Presentation.Utils;
 using MazeGenerators;
 using MazeGenerators.Utils;
 

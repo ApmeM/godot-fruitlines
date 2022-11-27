@@ -1,7 +1,7 @@
 using System;
 using Godot;
 using GodotAnalysers;
-using IsometricGame.Presentation.Utils;
+using Antilines.Presentation.Utils;
 
 [SceneReference("Main.tscn")]
 public partial class Main

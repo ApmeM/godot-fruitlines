@@ -1,4 +1,4 @@
-namespace IsometricGame.Presentation.Utils
+namespace Antilines.Presentation.Utils
 {
     public enum Achievements
     {

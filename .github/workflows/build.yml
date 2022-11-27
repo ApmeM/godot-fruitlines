@@ -41,7 +41,7 @@ jobs:
 
       - name: Restore packages
         run: |
-          dotnet restore "./src/Isometric Game.sln"
+          dotnet restore "./src/Antilines.sln"
 
       - name: Update presets config
         env:
@@ -122,6 +122,6 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: org.apmem.games.antilines
-          releaseFiles: ./android/Isometric Game.apk
+          releaseFiles: ./android/Antilines.apk
           track: production
           status: completed

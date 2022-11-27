@@ -1,4 +1,4 @@
-﻿namespace IsometricGame.Tests
+﻿namespace Antilines.Tests
 {
     using NUnit.Framework;
 

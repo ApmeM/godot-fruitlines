@@ -14,7 +14,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Isometric Game"
+config/name="Antilines"
 config/description="This demo shows a traditional isometric view with depth sorting.
 
 A character can move around the level and will also slide around objects,
@@ -89,7 +89,7 @@ pointing/emulate_touch_from_mouse=true
 
 [mono]
 
-project/assembly_name="Isometric Game"
+project/assembly_name="Antilines"
 
 [rasterizer]
 

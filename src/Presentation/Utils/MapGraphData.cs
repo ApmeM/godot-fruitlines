@@ -3,7 +3,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace IsometricGame.Logic.ScriptHelpers
+namespace Antilines.Logic.ScriptHelpers
 {
     public class MapGraphData : IAstarGraph<Vector2>
     {

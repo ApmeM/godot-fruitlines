@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Isometric Game", "Isometric Game.csproj", "{39B70584-4BA8-4E16-A291-773345B2376B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Antilines", "Antilines.csproj", "{39B70584-4BA8-4E16-A291-773345B2376B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Isometric Game.Tests", "..\test\Isometric Game.Tests.csproj", "{434E31EC-4233-442D-9FE7-B76E9D46E1C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Antilines.Tests", "..\test\Antilines.Tests.csproj", "{434E31EC-4233-442D-9FE7-B76E9D46E1C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

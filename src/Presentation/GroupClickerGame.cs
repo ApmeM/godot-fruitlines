@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using GodotAnalysers;
-using IsometricGame.Presentation.Utils;
+using Antilines.Presentation.Utils;
 
 [SceneReference("GroupClickerGame.tscn")]
 public partial class GroupClickerGame
