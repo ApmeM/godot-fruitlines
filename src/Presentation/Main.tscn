@@ -43,13 +43,6 @@ script = ExtResource( 1 )
 position = Vector2( 240, 400 )
 texture = ExtResource( 4 )
 
-[node name="AchievementNotifications" parent="." instance=ExtResource( 5 )]
-anchor_right = 1.0
-margin_left = 1.0
-margin_right = 1.0
-margin_bottom = 0.0
-mouse_filter = 2
-
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="ControlsContainer" type="VBoxContainer" parent="HUD"]
@@ -116,7 +109,7 @@ texture_disabled = SubResource( 6 )
 expand = true
 stretch_mode = 4
 
-[node name="CredentialsPopup" parent="HUD" instance=ExtResource( 2 )]
+[node name="CredentialsPopup" parent="." instance=ExtResource( 2 )]
 visible = false
 __meta__ = {
 "_editor_description_": ""
@@ -133,7 +126,7 @@ Idea: Color lines 1998
 
 Copyright 2022"
 
-[node name="HelpPopup" parent="HUD" instance=ExtResource( 2 )]
+[node name="HelpPopup" parent="." instance=ExtResource( 2 )]
 visible = false
 __meta__ = {
 "_editor_description_": ""
@@ -155,3 +148,5 @@ grant you scores.
 Unfortunately it is not 
 what you need to do.
   Goal: minimize your score."
+
+[node name="AchievementNotifications" parent="." instance=ExtResource( 5 )]
