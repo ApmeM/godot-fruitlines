@@ -101,7 +101,6 @@ namespace Antilines.Presentation.Utils
             if (!userFileJson.FileExists(ACHIEVEMENTS_DATA))
             {
                 GD.PrintErr("Achievement System: Can't open achievements data. It doesn't exists on device");
-                return;
             }
 
             GD.Print("Achievement System: Saving achievements  " + string.Join(", ", data.Keys));
