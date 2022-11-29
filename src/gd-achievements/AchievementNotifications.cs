@@ -9,6 +9,9 @@ public partial class AchievementNotifications
     public float ShowTime{get; set;} = 1;
 
     [Export]
+    public float MoveTime{get; set;} = 1;
+
+    [Export]
     public AudioStream GlobalSound
     {
         get { return this.audioStreamPlayer.Stream; }
@@ -30,6 +33,7 @@ public partial class AchievementNotifications
     {
         base._Ready();
         FillMembers();
+        this.tween.Start();
     }
 
     public void ProgressAchievement(string key, int progress)
@@ -63,11 +67,13 @@ public partial class AchievementNotifications
 
         this.audioStreamPlayer.Play();
 
-        notification.ShowAchievement();
-        await ToSignal(notification, nameof(AchievementNotification.AnimationFinished));
+        this.tween.InterpolateProperty(notification, new NodePath("rect_position:x"), -500, 0, this.MoveTime);
+        this.tween.Start();
+        await ToSignal(GetTree().CreateTimer(this.MoveTime), "timeout");
         await ToSignal(GetTree().CreateTimer(ShowTime), "timeout");
-        notification.HideAchievement();
-        await ToSignal(notification, nameof(AchievementNotification.AnimationFinished));
+        this.tween.InterpolateProperty(notification, new NodePath("rect_position:x"), 0, -500, this.MoveTime);
+        this.tween.Start();
+        await ToSignal(GetTree().CreateTimer(this.MoveTime), "timeout");
 
         notification.QueueFree();
     }

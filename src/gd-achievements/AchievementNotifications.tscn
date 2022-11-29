@@ -28,3 +28,5 @@ custom_constants/separation = 20
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -20.0
+
+[node name="Tween" type="Tween" parent="."]

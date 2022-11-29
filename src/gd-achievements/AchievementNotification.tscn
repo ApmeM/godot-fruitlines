@@ -1,52 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://gd-achievements/AchievementNotification.cs" type="Script" id=1]
 [ext_resource path="res://gd-achievements/resources/achievement_example.png" type="Texture" id=2]
-
-[sub_resource type="Animation" id=2]
-resource_name = "hide"
-tracks/0/type = "bezier"
-tracks/0/path = NodePath("AchievementPanel:rect_position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.423985, 66.8042, -560, -0.426136, 37.7292, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.6 )
-}
-tracks/1/type = "bezier"
-tracks/1/path = NodePath("AchievementPanel:rect_position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.42, 107.007, 18.042, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.7 )
-}
-
-[sub_resource type="Animation" id=3]
-tracks/0/type = "bezier"
-tracks/0/path = NodePath("AchievementPanel:rect_position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( -560, -0.25, 0, 0.353829, 23.433, 1.63255, -0.25, 50.875, 0.375423, -48.0204 ),
-"times": PoolRealArray( 0, 0.5 )
-}
-tracks/1/type = "bezier"
-tracks/1/path = NodePath("AchievementPanel:rect_position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.204192, -209.058 ),
-"times": PoolRealArray( 0, 0.9 )
-}
 
 [node name="AchievementNotification" type="MarginContainer"]
 script = ExtResource( 1 )
@@ -88,7 +43,3 @@ margin_bottom = 38.0
 text = "Description"
 align = 1
 autowrap = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/hide = SubResource( 2 )
-anims/popup = SubResource( 3 )
