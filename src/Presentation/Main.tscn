@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Presentation/Main.cs" type="Script" id=1]
 [ext_resource path="res://Presentation/CustomTextPopup.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/Buttons.png" type="Texture" id=3]
 [ext_resource path="res://assets/MainScreen.png" type="Texture" id=4]
-[ext_resource path="res://gd-achievements/AchievementNotifications.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Presentation/CustomAchievementsPopup.tscn" type="PackedScene" id=5]
+[ext_resource path="res://gd-achievements/AchievementNotifications.tscn" type="PackedScene" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -36,6 +37,21 @@ flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 1656, 1324, 215, 230 )
 
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 1142, 4190, 215, 230 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 1388, 4190, 215, 230 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 1656, 4190, 215, 230 )
+
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
 
@@ -66,21 +82,18 @@ custom_constants/separation = 30
 margin_top = 696.0
 margin_right = 480.0
 margin_bottom = 800.0
+custom_constants/margin_left = 30
 custom_constants/margin_bottom = 40
 
 [node name="BottomButtonsContainer" type="HBoxContainer" parent="HUD/ControlsContainer/BottomButonsMargin"]
+margin_left = 30.0
 margin_right = 480.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
+custom_constants/separation = 30
 
-[node name="HelpButtonMargin" type="MarginContainer" parent="HUD/ControlsContainer/BottomButonsMargin/BottomButtonsContainer"]
-margin_right = 94.0
-margin_bottom = 64.0
-custom_constants/margin_left = 30
-
-[node name="HelpButton" type="TextureButton" parent="HUD/ControlsContainer/BottomButonsMargin/BottomButtonsContainer/HelpButtonMargin"]
-margin_left = 30.0
-margin_right = 94.0
+[node name="HelpButton" type="TextureButton" parent="HUD/ControlsContainer/BottomButonsMargin/BottomButtonsContainer"]
+margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 rect_pivot_offset = Vector2( 14, 30 )
@@ -90,15 +103,9 @@ texture_disabled = SubResource( 3 )
 expand = true
 stretch_mode = 4
 
-[node name="CredentialsButtonMargin" type="MarginContainer" parent="HUD/ControlsContainer/BottomButonsMargin/BottomButtonsContainer"]
-margin_left = 98.0
-margin_right = 192.0
-margin_bottom = 64.0
-custom_constants/margin_left = 30
-
-[node name="CredentialsButton" type="TextureButton" parent="HUD/ControlsContainer/BottomButonsMargin/BottomButtonsContainer/CredentialsButtonMargin"]
-margin_left = 30.0
-margin_right = 94.0
+[node name="CredentialsButton" type="TextureButton" parent="HUD/ControlsContainer/BottomButonsMargin/BottomButtonsContainer"]
+margin_left = 94.0
+margin_right = 158.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 rect_pivot_offset = Vector2( 14, 30 )
@@ -106,6 +113,19 @@ keep_pressed_outside = true
 texture_normal = SubResource( 4 )
 texture_pressed = SubResource( 5 )
 texture_disabled = SubResource( 6 )
+expand = true
+stretch_mode = 4
+
+[node name="AchievementsButton" type="TextureButton" parent="HUD/ControlsContainer/BottomButonsMargin/BottomButtonsContainer"]
+margin_left = 188.0
+margin_right = 252.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+rect_pivot_offset = Vector2( 14, 30 )
+keep_pressed_outside = true
+texture_normal = SubResource( 7 )
+texture_pressed = SubResource( 8 )
+texture_disabled = SubResource( 9 )
 expand = true
 stretch_mode = 4
 
@@ -149,4 +169,7 @@ Unfortunately it is not
 what you need to do.
   Goal: minimize your score."
 
-[node name="AchievementNotifications" parent="." instance=ExtResource( 5 )]
+[node name="CustomAchievementsPopup" parent="." instance=ExtResource( 5 )]
+visible = false
+
+[node name="AchievementNotifications" parent="." instance=ExtResource( 6 )]

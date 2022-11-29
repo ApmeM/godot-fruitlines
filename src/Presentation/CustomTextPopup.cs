@@ -18,19 +18,10 @@ public partial class CustomTextPopup
     {
         base._Ready();
         this.FillMembers();
-
-        this.popupBackButton.Connect(CommonSignals.Pressed, this, nameof(BackButtonPressed));
-    }
-
-    private void BackButtonPressed()
-    {
-        this.Hide();
-        this.EmitSignal(nameof(PopupClosed));
     }
 
     public override void _Process(float delta)
     {
         this.popupLabel.Text = this.Text;
     }
-
 }

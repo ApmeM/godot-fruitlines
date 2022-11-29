@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://gd-achievements/AchievementList.cs" type="Script" id=1]
+[ext_resource path="res://gd-achievements/AchievementNotification.tscn" type="PackedScene" id=2]
+
+[node name="AchievementList" type="MarginContainer"]
+script = ExtResource( 1 )
+AchievementNotificationScene = ExtResource( 2 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_right = 253.0
+scroll_horizontal_enabled = false
+
+[node name="AchievementsContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 241.0
+margin_bottom = 176.0
+mouse_filter = 2
+custom_constants/separation = 20
+
+[node name="AchievementNotification" parent="ScrollContainer/AchievementsContainer" instance=ExtResource( 2 )]
+margin_right = 241.0
+margin_bottom = 78.0
+
+[node name="AchievementNotification2" parent="ScrollContainer/AchievementsContainer" instance=ExtResource( 2 )]
+margin_top = 98.0
+margin_right = 241.0
+margin_bottom = 176.0

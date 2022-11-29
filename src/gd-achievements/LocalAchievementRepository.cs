@@ -20,17 +20,16 @@ namespace Antilines.Presentation.Utils
             public string Name;
             [JsonProperty("icon_path")]
             public string IconPath;
+            [JsonProperty("is_hidden")]
+            public bool Hidden;
         }
 
         const string ACHIEVEMENTS_DATA = "user://achievements.json";
         const string ACHIEVEMENTS_DEFINITION = "res://gd-achievements/achievements.json";
 
-        private Dictionary<string, AchievementItem> achievements = new Dictionary<string, AchievementItem>();
-        private bool isLoaded = false;
-
         public bool ProgressAchievement(string key, int progress)
         {
-            EnsureAchievementsLoaded();
+            var achievements = EnsureAchievementsLoaded();
             achievements[key].CurrentProgress = Math.Min(progress + achievements[key].CurrentProgress, achievements[key].Goal);
             SaveAchievementData(achievements);
             if (achievements[key].CurrentProgress < achievements[key].Goal)
@@ -43,7 +42,7 @@ namespace Antilines.Presentation.Utils
 
         public bool UnlockAchievement(string key)
         {
-            EnsureAchievementsLoaded();
+            var achievements = EnsureAchievementsLoaded();
             if (!achievements.ContainsKey(key))
             {
                 GD.PrintErr($"Achievement System: Attempt to get an achievement on {key}, key doesn't exist.");
@@ -63,19 +62,19 @@ namespace Antilines.Presentation.Utils
 
         public Achievement GetAchievement(string key)
         {
-            EnsureAchievementsLoaded();
+            var achievements = EnsureAchievementsLoaded();
             return ToAchievement(achievements[key]);
         }
 
-        public Dictionary<string, Achievement> GetAllAchievements()
+        public IEnumerable<Achievement> GetForList()
         {
-            EnsureAchievementsLoaded();
-            return achievements.ToDictionary(a => a.Key, a => ToAchievement(a.Value));
+            var achievements = EnsureAchievementsLoaded();
+            return achievements.Values.Where(a => !a.Hidden || a.Achieved).OrderByDescending(a => a.Achieved).Select(ToAchievement);
         }
 
         public void ResetAchievements()
         {
-            EnsureAchievementsLoaded();
+            var achievements = EnsureAchievementsLoaded();
             foreach (var key in achievements)
                 key.Value.Achieved = false;
 
@@ -109,17 +108,11 @@ namespace Antilines.Presentation.Utils
             userFileJson.Close();
         }
 
-        private void EnsureAchievementsLoaded()
+        private Dictionary<string, AchievementItem> EnsureAchievementsLoaded()
         {
-            if (isLoaded)
-            {
-                return;
-            }
-
-            isLoaded = true;
             var definition = LoadAchievementDefinitions();
             var data = LoadAchievementData();
-            achievements = MergeDefinitionAndData(definition, data);
+            return MergeDefinitionAndData(definition, data);
         }
 
         private Dictionary<string, AchievementItem> LoadAchievementDefinitions()

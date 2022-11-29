@@ -21,6 +21,7 @@ public partial class Main
 
         this.credentialsButton.Connect(CommonSignals.Pressed, this, nameof(ShowCredentials));
         this.helpButton.Connect(CommonSignals.Pressed, this, nameof(ShowHelp));
+        this.achievementsButton.Connect(CommonSignals.Pressed, this, nameof(ShowAchievements));
 
         var theme = ResourceLoader.Load<Theme>("res://Presentation/UITheme.tres");
 
@@ -43,6 +44,12 @@ public partial class Main
     private void ShowHelp()
     {
         this.helpPopup.Show();
+    }
+
+    private void ShowAchievements()
+    {
+        this.customAchievementsPopup.Show();
+        this.customAchievementsPopup.ReloadList();
     }
 
     public void StartGameDone(int gameId)
