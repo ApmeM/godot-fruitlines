@@ -55,9 +55,14 @@ region = Rect2( 1656, 4190, 215, 230 )
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
 
-[node name="MainScreen" type="Sprite" parent="."]
-position = Vector2( 240, 400 )
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = ExtResource( 4 )
+stretch_mode = 1
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -151,22 +156,10 @@ visible = false
 __meta__ = {
 "_editor_description_": ""
 }
-Text = "  In 'Lines' game you need to
-assemble a row with 5 fruits 
-of the same type horizontally, 
-vertically or diagonally to get
-scores. 
+Text = "  In 'Lines' game you need to assemble a row with 5 fruits  of the same type horizontally, vertically or diagonally to get scores. 
   Goal: maximize your score.
 
-  In opposite 'Anti-lines' has
-different goal - you need to 
-fill the field with fruits, but
-it is harder then you may 
-think. Here each line with 3 
-fruits in a row disappear and
-grant you scores. 
-Unfortunately it is not 
-what you need to do.
+  In opposite 'Anti-lines' has different goal - you need to fill the field with fruits, but it is harder then you may  think. Here each line with 3 fruits in a row disappear and grant you scores. Unfortunately it is not  what you need to do. 
   Goal: minimize your score."
 
 [node name="CustomAchievementsPopup" parent="." instance=ExtResource( 5 )]

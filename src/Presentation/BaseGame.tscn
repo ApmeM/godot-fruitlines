@@ -62,7 +62,6 @@ custom_constants/margin_top = 30
 margin_top = 30.0
 margin_right = 480.0
 margin_bottom = 104.0
-size_flags_horizontal = 3
 
 [node name="BestScoreContainer" type="PanelContainer" parent="HUD/TopLabelsMargin/TopLabelsContainer"]
 margin_right = 190.0
@@ -123,6 +122,7 @@ margin_bottom = 69.0
 rect_min_size = Vector2( 60, 60 )
 texture = ExtResource( 1 )
 expand = true
+stretch_mode = 6
 
 [node name="MultiplierLabel" type="Label" parent="HUD/TopLabelsMargin/TopLabelsContainer/BasketContainer"]
 margin_left = 5.0
@@ -169,21 +169,18 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -104.0
+custom_constants/margin_left = 30
 custom_constants/margin_bottom = 40
 
 [node name="BottomButtonsContainer" type="HBoxContainer" parent="HUD/BottomButonsMargin"]
+margin_left = 30.0
 margin_right = 480.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
+custom_constants/separation = 30
 
-[node name="BackButtonMargin" type="MarginContainer" parent="HUD/BottomButonsMargin/BottomButtonsContainer"]
-margin_right = 94.0
-margin_bottom = 64.0
-custom_constants/margin_left = 30
-
-[node name="BackButton" type="TextureButton" parent="HUD/BottomButonsMargin/BottomButtonsContainer/BackButtonMargin"]
-margin_left = 30.0
-margin_right = 94.0
+[node name="BackButton" type="TextureButton" parent="HUD/BottomButonsMargin/BottomButtonsContainer"]
+margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 rect_pivot_offset = Vector2( 14, 30 )
@@ -193,15 +190,9 @@ texture_disabled = SubResource( 3 )
 expand = true
 stretch_mode = 4
 
-[node name="RestartButtonMargin" type="MarginContainer" parent="HUD/BottomButonsMargin/BottomButtonsContainer"]
-margin_left = 98.0
-margin_right = 192.0
-margin_bottom = 64.0
-custom_constants/margin_left = 30
-
-[node name="RestartButton" type="TextureButton" parent="HUD/BottomButonsMargin/BottomButtonsContainer/RestartButtonMargin"]
-margin_left = 30.0
-margin_right = 94.0
+[node name="RestartButton" type="TextureButton" parent="HUD/BottomButonsMargin/BottomButtonsContainer"]
+margin_left = 94.0
+margin_right = 158.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 rect_pivot_offset = Vector2( 14, 30 )
