@@ -20,18 +20,18 @@ public partial class AchievementNotification
 
     public void SetAchievement(Achievement data)
     {
+        this.description.Text = data.Description;
+
         if (data.Achieved)
         {
-            this.mainTitle.Text = "Achievement Unlocked!";
+            this.mainTitle.Text = data.Name + " Unlocked";
+            this.textureRect.Texture = ResourceLoader.Load<Texture>(data.IconPath);
         }
         else
         {
-            this.mainTitle.Text = "Achievement LOCKED!";
+            this.mainTitle.Text = data.Name + " Locked";
             this.description.AddColorOverride("font_color", Color.Color8(150, 150, 150));
             this.mainTitle.AddColorOverride("font_color", Color.Color8(150, 150, 150));
         }
-
-        this.description.Text = data.Name;
-        this.textureRect.Texture = ResourceLoader.Load<Texture>(data.IconPath);
     }
 }

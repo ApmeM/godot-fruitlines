@@ -4,5 +4,6 @@ public class Achievement : Godot.Object
     public int CurrentProgress;
     public int Goal;
     public string Name;
+    public string Description;
     public string IconPath;
 }

@@ -18,6 +18,8 @@ namespace Antilines.Presentation.Utils
             public int Goal;
             [JsonProperty("name")]
             public string Name;
+            [JsonProperty("description")]
+            public string Description;
             [JsonProperty("icon_path")]
             public string IconPath;
             [JsonProperty("is_hidden")]
@@ -90,6 +92,7 @@ namespace Antilines.Presentation.Utils
                 Goal = data.Goal,
                 Name = data.Name,
                 IconPath = data.IconPath,
+                Description = data.Description
             };
         }
 

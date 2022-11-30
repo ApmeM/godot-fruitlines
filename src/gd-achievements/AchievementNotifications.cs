@@ -6,7 +6,7 @@ using Antilines.Presentation.Utils;
 public partial class AchievementNotifications
 {
     [Export]
-    public float ShowTime{get; set;} = 1;
+    public float ShowTime{get; set;} = 2;
 
     [Export]
     public float MoveTime{get; set;} = 1;

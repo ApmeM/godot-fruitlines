@@ -1,16 +1,16 @@
 {
   "LinesMultiply3": {
-    "name": "ScoLines multiplier 3",
+    "name": "Score Lines multiplier 3",
     "description": "Easy: Lines multiplier reached 3!",
     "icon_path": "res://assets/Achivements/LinesMultiply3.png"
   },
   "LinesMultiply5": {
-    "name": "ScoLines multiplier 5",
+    "name": "Score Lines multiplier 5",
     "description": "Hard: Lines multiplier reached 5!",
     "icon_path": "res://assets/Achivements/LinesMultiply5.png"
   },
   "LinesMultiply7": {
-    "name": "ScoLines multiplier 7",
+    "name": "Score Lines multiplier 7",
     "description": "Impossible: Lines multiplier reached 7!",
     "icon_path": "res://assets/Achivements/LinesMultiply7.png"
   },

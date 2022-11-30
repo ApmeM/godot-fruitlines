@@ -4,24 +4,33 @@
 [ext_resource path="res://gd-achievements/AchievementNotification.tscn" type="PackedScene" id=2]
 
 [node name="AchievementList" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 1 )
 AchievementNotificationScene = ExtResource( 2 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_right = 253.0
+margin_right = 480.0
+margin_bottom = 800.0
 scroll_horizontal_enabled = false
 
 [node name="AchievementsContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 241.0
-margin_bottom = 176.0
+margin_right = 480.0
+margin_bottom = 800.0
 mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 20
 
 [node name="AchievementNotification" parent="ScrollContainer/AchievementsContainer" instance=ExtResource( 2 )]
-margin_right = 241.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 480.0
 margin_bottom = 78.0
 
 [node name="AchievementNotification2" parent="ScrollContainer/AchievementsContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 98.0
-margin_right = 241.0
+margin_right = 480.0
 margin_bottom = 176.0
