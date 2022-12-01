@@ -52,6 +52,7 @@ public partial class LifeGame
         {
             fruit.QueueFree();
         }
+        this.graph.ClearMap();
 
         RestartInternal();
 
@@ -67,9 +68,11 @@ public partial class LifeGame
                     fruit.AddToGroup(Groups.Fruits);
                     this.AddChild(fruit);
                     this.fluent.result.Paths[x, y] = 1;
+                    this.graph.AddFruit(fruit, new Godot.Vector2(x, y));
                 }
             }
         }
+        this.SaveState();
     }
 
     private void TickLife()
@@ -79,6 +82,7 @@ public partial class LifeGame
         {
             fruit.QueueFree();
         }
+        this.graph.ClearMap();
 
         fluent.Life(1, 1, 0, (n) => n == 3, (n) => n < 3 || n > 4);
 
@@ -93,9 +97,11 @@ public partial class LifeGame
                     fruit.Position = this.field.MapToWorld(new Godot.Vector2(x, y));
                     fruit.AddToGroup(Groups.Fruits);
                     this.AddChild(fruit);
+                    this.graph.AddFruit(fruit, new Godot.Vector2(x, y));
                 }
             }
         }
+        this.SaveState();
     }
 
     protected override void FieldCellSelectedInternal(Godot.Vector2 cell)
@@ -108,6 +114,8 @@ public partial class LifeGame
             fruit.AddToGroup(Groups.Fruits);
             this.AddChild(fruit);
             this.fluent.result.Paths[(int)cell.x, (int)cell.y] = 1;
+            this.graph.AddFruit(fruit, new Godot.Vector2((int)cell.x, (int)cell.y));
+            this.SaveState();
         }
     }
 
