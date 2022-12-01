@@ -26,6 +26,7 @@ public partial class AchievementNotification
         {
             this.mainTitle.Text = data.Name + " Unlocked";
             this.textureRect.Texture = ResourceLoader.Load<Texture>(data.IconPath);
+            this.description.Text += "\n\nUnlocked at " + data.UnlockDate?.ToString("dd-MMM-yyyy");
         }
         else
         {

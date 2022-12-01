@@ -43,7 +43,7 @@ custom_constants/separation = 10
 [node name="MainTitle" type="Label" parent="AchievementPanel/HBoxContainer/VBoxContainer"]
 margin_right = 392.0
 margin_bottom = 14.0
-text = "Achievement Unlocked!"
+text = "Achievement name"
 clip_text = true
 
 [node name="Description" type="Label" parent="AchievementPanel/HBoxContainer/VBoxContainer"]

@@ -8,22 +8,32 @@ namespace Antilines.Presentation.Utils
 {
     public class LocalAchievementRepository : IAchievementRepository
     {
-        private class AchievementItem
+        private class AchievementDefinition
+        {
+            [JsonProperty("goal")]
+            public int Goal;
+
+            [JsonProperty("name")]
+            public string Name;
+
+            [JsonProperty("description")]
+            public string Description;
+
+            [JsonProperty("icon_path")]
+            public string IconPath;
+
+            [JsonProperty("is_hidden")]
+            public bool Hidden;
+        }
+
+        private class UserAchievement
         {
             [JsonProperty("achieved")]
             public bool Achieved;
             [JsonProperty("current_progress")]
             public int CurrentProgress;
-            [JsonProperty("goal")]
-            public int Goal;
-            [JsonProperty("name")]
-            public string Name;
-            [JsonProperty("description")]
-            public string Description;
-            [JsonProperty("icon_path")]
-            public string IconPath;
-            [JsonProperty("is_hidden")]
-            public bool Hidden;
+            [JsonProperty("unlock_date")]
+            public DateTime? UnlockDate;
         }
 
         const string ACHIEVEMENTS_DATA = "user://achievements.json";
@@ -58,6 +68,7 @@ namespace Antilines.Presentation.Utils
             }
 
             currentAchievement.Achieved = true;
+            currentAchievement.UnlockDate = DateTime.Now;
             SaveAchievementData(achievements);
             return true;
         }
@@ -65,13 +76,13 @@ namespace Antilines.Presentation.Utils
         public Achievement GetAchievement(string key)
         {
             var achievements = EnsureAchievementsLoaded();
-            return ToAchievement(achievements[key]);
+            return achievements[key];
         }
 
         public IEnumerable<Achievement> GetForList()
         {
             var achievements = EnsureAchievementsLoaded();
-            return achievements.Values.Where(a => !a.Hidden || a.Achieved).OrderByDescending(a => a.Achieved).Select(ToAchievement);
+            return achievements.Values.Where(a => !a.Hidden || a.Achieved).OrderByDescending(a => a.Achieved);
         }
 
         public void ResetAchievements()
@@ -83,20 +94,30 @@ namespace Antilines.Presentation.Utils
             SaveAchievementData(achievements);
         }
 
-        private Achievement ToAchievement(AchievementItem data)
+        private Achievement ToAchievement(AchievementDefinition definition, UserAchievement achievement)
         {
             return new Achievement
             {
-                Achieved = data.Achieved,
-                CurrentProgress = data.CurrentProgress,
-                Goal = data.Goal,
-                Name = data.Name,
-                IconPath = data.IconPath,
-                Description = data.Description
+                Achieved = achievement?.Achieved ?? false,
+                CurrentProgress = achievement?.CurrentProgress ?? 0,
+                UnlockDate = achievement?.UnlockDate,
+                Goal = definition.Goal,
+                Name = definition.Name,
+                IconPath = definition.IconPath,
+                Description = definition.Description
+            };
+        }
+        private UserAchievement ToData(Achievement achievement)
+        {
+            return new UserAchievement
+            {
+                Achieved = achievement.Achieved,
+                CurrentProgress = achievement.CurrentProgress,
+                UnlockDate = achievement.UnlockDate,
             };
         }
 
-        private void SaveAchievementData(Dictionary<string, AchievementItem> data)
+        private void SaveAchievementData(Dictionary<string, Achievement> achievements)
         {
             var userFileJson = new File();
 
@@ -105,31 +126,33 @@ namespace Antilines.Presentation.Utils
                 GD.PrintErr("Achievement System: Can't open achievements data. It doesn't exists on device");
             }
 
+            var data = achievements.ToDictionary(a => a.Key, a => ToData(a.Value));
+
             GD.Print("Achievement System: Saving achievements  " + string.Join(", ", data.Keys));
             userFileJson.Open(ACHIEVEMENTS_DATA, File.ModeFlags.Write);
             userFileJson.StoreString(JsonConvert.SerializeObject(data));
             userFileJson.Close();
         }
 
-        private Dictionary<string, AchievementItem> EnsureAchievementsLoaded()
+        private Dictionary<string, Achievement> EnsureAchievementsLoaded()
         {
             var definition = LoadAchievementDefinitions();
             var data = LoadAchievementData();
             return MergeDefinitionAndData(definition, data);
         }
 
-        private Dictionary<string, AchievementItem> LoadAchievementDefinitions()
+        private Dictionary<string, AchievementDefinition> LoadAchievementDefinitions()
         {
             var file = new File();
             file.Open(ACHIEVEMENTS_DEFINITION, File.ModeFlags.Read);
 
-            var data = JsonConvert.DeserializeObject<Dictionary<string, AchievementItem>>(file.GetAsText());
+            var data = JsonConvert.DeserializeObject<Dictionary<string, AchievementDefinition>>(file.GetAsText());
 
             file.Close();
             return data;
         }
 
-        private Dictionary<string, AchievementItem> LoadAchievementData()
+        private Dictionary<string, UserAchievement> LoadAchievementData()
         {
             var file = new File();
             if (!file.FileExists(ACHIEVEMENTS_DATA))
@@ -138,35 +161,21 @@ namespace Antilines.Presentation.Utils
             }
 
             file.Open(ACHIEVEMENTS_DATA, File.ModeFlags.Read);
-            var data = JsonConvert.DeserializeObject<Dictionary<string, AchievementItem>>(file.GetAsText());
+            var data = JsonConvert.DeserializeObject<Dictionary<string, UserAchievement>>(file.GetAsText());
             file.Close();
 
             return data;
         }
 
-        private Dictionary<string, AchievementItem> MergeDefinitionAndData(Dictionary<string, AchievementItem> definition, Dictionary<string, AchievementItem> data)
+        private Dictionary<string, Achievement> MergeDefinitionAndData(Dictionary<string, AchievementDefinition> definition, Dictionary<string, UserAchievement> data)
         {
             GD.Print("Achievement System: Loading achievements " + string.Join(", ", definition.Keys));
             if (data == null || data.Count == 0)
             {
-                return definition;
+                return definition.ToDictionary(a => a.Key, a => ToAchievement(a.Value, null));
             }
 
-            var toDelete = data.Keys.Except(definition.Keys).ToList();
-            GD.Print("Achievement System: Obsolete achievements removed" + string.Join(", ", toDelete));
-            foreach (var item in toDelete)
-            {
-                data.Remove(item);
-            }
-
-            var toInsert = definition.Keys.Except(data.Keys).ToList();
-            GD.Print("Achievement System: New achievements added " + string.Join(", ", toInsert));
-            foreach (var item in toInsert)
-            {
-                data[item] = definition[item];
-            }
-
-            return data;
+            return definition.ToDictionary(a => a.Key, a => ToAchievement(a.Value, data.ContainsKey(a.Key) ? data[a.Key] : null));
         }
     }
 }

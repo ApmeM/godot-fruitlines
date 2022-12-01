@@ -1,3 +1,5 @@
+using System;
+
 public class Achievement : Godot.Object
 {
     public bool Achieved;
@@ -6,4 +8,6 @@ public class Achievement : Godot.Object
     public string Name;
     public string Description;
     public string IconPath;
+    public bool Hidden;
+    public DateTime? UnlockDate;
 }
