@@ -58,5 +58,20 @@
     "name": "Remove all fruits",
     "description": "Impossible: Group clicker field cleared!",
     "icon_path": "res://assets/Achivements/GroupClearAll.png"
+  },
+  "FloodIt20": {
+    "name": "Finish with 20 turns",
+    "description": "Easy: Finish FloodIt game with less then 20 turns!",
+    "icon_path": "res://assets/Achivements/GroupClearAll.png"
+  },
+  "FloodIt18": {
+    "name": "Finish with 18 turns",
+    "description": "Hard: Finish FloodIt game with less then 18 turns!",
+    "icon_path": "res://assets/Achivements/GroupClearAll.png"
+  },
+  "FloodIt15": {
+    "name": "Finish with 15 turns",
+    "description": "Impossible: Finish FloodIt game with less then 15 turns!",
+    "icon_path": "res://assets/Achivements/GroupClearAll.png"
   }
 }

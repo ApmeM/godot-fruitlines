@@ -18,10 +18,13 @@ public partial class FloodItGame
                 Fruit.FruitTypes.Pineaple
             };
 
+    private AchievementNotifications achievementNotifications;
+
     public override void _Ready()
     {
         base._Ready();
         this.FillMembers();
+        this.achievementNotifications = GetNode<AchievementNotifications>("/root/Main/AchievementNotifications");
     }
 
     protected override void FieldCellSelectedInternal(Vector2 cell)
@@ -49,6 +52,19 @@ public partial class FloodItGame
 
     protected override int GetBestScoreInternal(int bestScore, int currentScore)
     {
+        if (currentScore <= 20)
+        {
+            achievementNotifications.UnlockAchievement(Achievements.FloodIt20.ToString());
+        }
+        if (currentScore <= 18)
+        {
+            achievementNotifications.UnlockAchievement(Achievements.FloodIt18.ToString());
+        }
+        if (currentScore <= 15)
+        {
+            achievementNotifications.UnlockAchievement(Achievements.FloodIt15.ToString());
+        }
+
         return Mathf.Max(bestScore, currentScore);
     }
 

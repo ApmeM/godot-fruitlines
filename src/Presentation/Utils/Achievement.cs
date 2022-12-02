@@ -14,5 +14,8 @@ namespace Antilines.Presentation.Utils
         GroupRemove10,
         GroupRemoveAllType,
         GroupClearAll,
+        FloodIt20,
+        FloodIt18,
+        FloodIt15,
     }
 }
