@@ -157,7 +157,7 @@ namespace Antilines.Presentation.Utils
         private Dictionary<string, AchievementDefinition> LoadAchievementDefinitions()
         {
             var file = new File();
-            if (!file.FileExists(ACHIEVEMENTS_DATA))
+            if (!file.FileExists(ACHIEVEMENTS_DEFINITION))
             {
                 GD.PrintErr("Achievement System: Can't open achievements definitions. It doesn't exists on device");
                 return new Dictionary<string, AchievementDefinition>();
