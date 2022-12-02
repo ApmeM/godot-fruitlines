@@ -130,6 +130,15 @@ public partial class LifeGame
 
     protected override void LoadInternal(GameRepository.GameState state)
     {
+        RestartInternal();
+
+        for (var x = 0; x < Width; x++)
+        {
+            for (var y = 0; y < Height; y++)
+            {
+                this.fluent.result.Paths[x,y] = (state.Map[x,y] != null) ? 1 : 0;
+            }
+        }
     }
 
     protected override void RestartInternal()
