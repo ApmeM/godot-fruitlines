@@ -140,16 +140,10 @@ public partial class GroupClickerGame
         for (var x = 0; x < Width; x++)
             for (var y = 0; y < Height; y++)
             {
-                var position = new Vector2(x, y);
-
-                var fruit = this.FruitScene.Instance<Fruit>();
-                fruit.FruitType = UsedColors[r.Next(UsedColors.Length)];
-                fruit.Position = this.field.MapToWorld(position) + Vector2.Up * 300;
-                fruit.AddToGroup(Groups.Fruits);
-                this.AddChild(fruit);
-                this.graph.AddFruit(fruit, position);
-
-                fruit.Drop(this.field.MapToWorld(position));
+                var cell = new Vector2(x, y);
+                var fruit = CreateNewFruit(UsedColors[r.Next(UsedColors.Length)], cell);
+                fruit.Position = this.field.MapToWorld(cell) + Vector2.Up * 300;
+                fruit.Drop(this.field.MapToWorld(cell));
             }
     }
 

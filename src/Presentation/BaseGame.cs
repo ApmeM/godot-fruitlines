@@ -3,7 +3,6 @@ using GodotAnalysers;
 using System;
 using System.Linq;
 using Antilines.Logic.ScriptHelpers;
-using BrainAI.Pathfinding.AStar;
 using System.Collections.Generic;
 using Antilines.Presentation.Utils;
 
@@ -141,15 +140,8 @@ public abstract partial class BaseGame
                 }
 
                 var position = new Vector2(x, y);
-                var fruit = this.FruitScene.Instance<Fruit>();
-                fruit.FruitType = state.Map[x, y].Value;
+                var fruit = CreateNewFruit(state.Map[x, y].Value, position);
                 fruit.Position = this.field.MapToWorld(position) + Vector2.Up * 300;
-                fruit.AddToGroup(Groups.Fruits);
-                fruit.Connect(nameof(Fruit.FruitMoved), this, nameof(FruitMoved));
-                this.AddChild(fruit);
-
-                this.graph.AddFruit(fruit, position);
-
                 fruit.Drop(this.field.MapToWorld(position));
             }
 
@@ -216,6 +208,21 @@ public abstract partial class BaseGame
         this.BestScore = GetBestScoreInternal(this.BestScore, this.CurrentScore);
 
         return isGameOver;
+    }
+
+    protected Fruit CreateNewFruit(Fruit.FruitTypes fruitType, Vector2? cellPosition)
+    {
+        var fruit = this.FruitScene.Instance<Fruit>();
+        fruit.FruitType = fruitType;
+        fruit.AddToGroup(Groups.Fruits);
+        fruit.Connect(nameof(Fruit.FruitMoved), this, nameof(FruitMoved));
+        this.AddChild(fruit);
+        if (cellPosition != null)
+        {
+            fruit.Position = this.field.MapToWorld(cellPosition.Value);
+            this.graph.AddFruit(fruit, cellPosition.Value);
+        }
+        return fruit;
     }
 
     protected void SaveState()

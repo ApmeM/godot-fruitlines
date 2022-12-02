@@ -62,13 +62,9 @@ public partial class LifeGame
             {
                 if (random.NextDouble() > 0.5)
                 {
-                    var fruit = this.FruitScene.Instance<Fruit>();
-                    fruit.FruitType = UsedColors[r.Next(UsedColors.Length)];
-                    fruit.Position = this.field.MapToWorld(new Godot.Vector2(x, y));
-                    fruit.AddToGroup(Groups.Fruits);
-                    this.AddChild(fruit);
+                    var cell = new Godot.Vector2(x, y);
+                    var fruit = CreateNewFruit(UsedColors[r.Next(UsedColors.Length)], cell);
                     this.fluent.result.Paths[x, y] = 1;
-                    this.graph.AddFruit(fruit, new Godot.Vector2(x, y));
                 }
             }
         }
@@ -92,12 +88,8 @@ public partial class LifeGame
             {
                 if (fluent.result.Paths[x, y] == 1)
                 {
-                    var fruit = this.FruitScene.Instance<Fruit>();
-                    fruit.FruitType = UsedColors[r.Next(UsedColors.Length)];
-                    fruit.Position = this.field.MapToWorld(new Godot.Vector2(x, y));
-                    fruit.AddToGroup(Groups.Fruits);
-                    this.AddChild(fruit);
-                    this.graph.AddFruit(fruit, new Godot.Vector2(x, y));
+                    var cell = new Godot.Vector2(x, y);
+                    var fruit = CreateNewFruit(UsedColors[r.Next(UsedColors.Length)], cell);
                 }
             }
         }
@@ -108,13 +100,8 @@ public partial class LifeGame
     {
         if (this.fluent.result.Paths[(int)cell.x, (int)cell.y] == 0)
         {
-            var fruit = this.FruitScene.Instance<Fruit>();
-            fruit.FruitType = UsedColors[r.Next(UsedColors.Length)];
-            fruit.Position = this.field.MapToWorld(cell);
-            fruit.AddToGroup(Groups.Fruits);
-            this.AddChild(fruit);
+            var fruit = CreateNewFruit(UsedColors[r.Next(UsedColors.Length)], cell);
             this.fluent.result.Paths[(int)cell.x, (int)cell.y] = 1;
-            this.graph.AddFruit(fruit, new Godot.Vector2((int)cell.x, (int)cell.y));
             this.SaveState();
         }
     }

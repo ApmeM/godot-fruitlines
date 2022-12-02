@@ -56,13 +56,9 @@ public abstract partial class BaseLinesGame
 
     private void AddFruitToStart(Position2D position)
     {
-        var fruit = this.FruitScene.Instance<Fruit>();
-        fruit.FruitType = UsedColors[r.Next(UsedColors.Length)];
+        var fruit = CreateNewFruit(UsedColors[r.Next(UsedColors.Length)], null);
         fruit.Position = position.Position;
-        fruit.AddToGroup(Groups.Fruits);
         fruit.AddToGroup(Groups.FruitsAtStart);
-        fruit.Connect(nameof(Fruit.FruitMoved), this, nameof(FruitMoved));
-        this.AddChild(fruit);
     }
 
     private void TurnStart()
