@@ -11,9 +11,6 @@ public partial class CustomTextPopup
     [Export(PropertyHint.MultilineText)] 
     public string Text { get; set; }
 
-    [Signal]
-    public delegate void PopupClosed();
-
     public override void _Ready()
     {
         base._Ready();

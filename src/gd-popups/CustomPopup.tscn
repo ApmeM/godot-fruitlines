@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Presentation/UITheme.tres" type="Theme" id=1]
+[ext_resource path="res://gd-popups/Popup.png" type="Texture" id=1]
 [ext_resource path="res://assets/Buttons.png" type="Texture" id=2]
-[ext_resource path="res://Presentation/CustomPopup.cs" type="Script" id=3]
+[ext_resource path="res://gd-popups/CustomPopup.cs" type="Script" id=3]
 
 [sub_resource type="AtlasTexture" id=7]
 flags = 4
@@ -30,18 +30,21 @@ custom_constants/margin_top = 50
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 50
 
-[node name="Panel" type="Panel" parent="MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
 margin_left = 20.0
 margin_top = 50.0
 margin_right = 460.0
 margin_bottom = 750.0
-theme = ExtResource( 1 )
+texture = ExtResource( 1 )
+stretch_mode = 1
 
-[node name="PopupContainer" type="VBoxContainer" parent="MarginContainer/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="PopupContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 20.0
+margin_top = 50.0
+margin_right = 460.0
+margin_bottom = 750.0
 
-[node name="PopupContentMargin" type="MarginContainer" parent="MarginContainer/Panel/PopupContainer"]
+[node name="PopupContentMargin" type="MarginContainer" parent="MarginContainer/PopupContainer"]
 margin_right = 440.0
 margin_bottom = 572.0
 size_flags_horizontal = 3
@@ -50,20 +53,20 @@ custom_constants/margin_right = 30
 custom_constants/margin_top = 60
 custom_constants/margin_left = 30
 
-[node name="PopupBottomButonsMargin" type="MarginContainer" parent="MarginContainer/Panel/PopupContainer"]
+[node name="PopupBottomButonsMargin" type="MarginContainer" parent="MarginContainer/PopupContainer"]
 margin_top = 576.0
 margin_right = 440.0
 margin_bottom = 700.0
 custom_constants/margin_left = 60
 custom_constants/margin_bottom = 60
 
-[node name="PopupBottomButtonsContainer" type="HBoxContainer" parent="MarginContainer/Panel/PopupContainer/PopupBottomButonsMargin"]
+[node name="PopupBottomButtonsContainer" type="HBoxContainer" parent="MarginContainer/PopupContainer/PopupBottomButonsMargin"]
 margin_left = 60.0
 margin_right = 440.0
 margin_bottom = 64.0
 size_flags_horizontal = 3
 
-[node name="PopupBackButton" type="TextureButton" parent="MarginContainer/Panel/PopupContainer/PopupBottomButonsMargin/PopupBottomButtonsContainer"]
+[node name="PopupBackButton" type="TextureButton" parent="MarginContainer/PopupContainer/PopupBottomButonsMargin/PopupBottomButtonsContainer"]
 margin_right = 64.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )

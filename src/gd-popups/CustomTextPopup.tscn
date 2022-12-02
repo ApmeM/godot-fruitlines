@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://gd-popups/CustomPopup.tscn" type="PackedScene" id=1]
+[ext_resource path="res://gd-popups/CustomTextPopup.cs" type="Script" id=3]
+
+[node name="CustomTextPopup" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+Text = "Popup content text"
+
+[node name="PopupLabel" type="Label" parent="MarginContainer/PopupContainer/PopupContentMargin" index="0"]
+margin_left = 30.0
+margin_top = 60.0
+margin_right = 410.0
+margin_bottom = 572.0
+size_flags_vertical = 5
+text = "Popup content text"
+valign = 1
+autowrap = true

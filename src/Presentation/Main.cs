@@ -54,7 +54,7 @@ public partial class Main
 
     public void StartGameDone(int gameId)
     {
-        var scene = ResourceLoader.Load<PackedScene>($"res://Presentation/{availableGames[gameId].ToString()}Game.tscn");
+        var scene = ResourceLoader.Load<PackedScene>($"res://Presentation/Games/{availableGames[gameId].ToString()}Game.tscn");
         var game = scene.Instance();
         game.AddToGroup(Groups.Game);
         game.Connect("Close", this, nameof(GameOver));
