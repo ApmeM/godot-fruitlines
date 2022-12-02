@@ -42,6 +42,12 @@ namespace Antilines.Presentation.Utils
         public bool ProgressAchievement(string key, int progress)
         {
             var achievements = EnsureAchievementsLoaded();
+            if (!achievements.ContainsKey(key))
+            {
+                GD.PrintErr($"Achievement System: Attempt to get an achievement on {key}, key doesn't exist.");
+                return false;
+            }
+
             achievements[key].CurrentProgress = Math.Min(progress + achievements[key].CurrentProgress, achievements[key].Goal);
             SaveAchievementData(achievements);
             if (achievements[key].CurrentProgress < achievements[key].Goal)
@@ -76,6 +82,12 @@ namespace Antilines.Presentation.Utils
         public Achievement GetAchievement(string key)
         {
             var achievements = EnsureAchievementsLoaded();
+            if (!achievements.ContainsKey(key))
+            {
+                GD.PrintErr($"Achievement System: Attempt to get an achievement on {key}, key doesn't exist.");
+                return null;
+            }
+
             return achievements[key];
         }
 
@@ -89,7 +101,9 @@ namespace Antilines.Presentation.Utils
         {
             var achievements = EnsureAchievementsLoaded();
             foreach (var key in achievements)
+            {
                 key.Value.Achieved = false;
+            }
 
             SaveAchievementData(achievements);
         }
@@ -128,7 +142,6 @@ namespace Antilines.Presentation.Utils
 
             var data = achievements.ToDictionary(a => a.Key, a => ToData(a.Value));
 
-            GD.Print("Achievement System: Saving achievements  " + string.Join(", ", data.Keys));
             userFileJson.Open(ACHIEVEMENTS_DATA, File.ModeFlags.Write);
             userFileJson.StoreString(JsonConvert.SerializeObject(data));
             userFileJson.Close();
@@ -144,6 +157,12 @@ namespace Antilines.Presentation.Utils
         private Dictionary<string, AchievementDefinition> LoadAchievementDefinitions()
         {
             var file = new File();
+            if (!file.FileExists(ACHIEVEMENTS_DATA))
+            {
+                GD.PrintErr("Achievement System: Can't open achievements definitions. It doesn't exists on device");
+                return new Dictionary<string, AchievementDefinition>();
+            }
+
             file.Open(ACHIEVEMENTS_DEFINITION, File.ModeFlags.Read);
 
             var data = JsonConvert.DeserializeObject<Dictionary<string, AchievementDefinition>>(file.GetAsText());
@@ -157,7 +176,8 @@ namespace Antilines.Presentation.Utils
             var file = new File();
             if (!file.FileExists(ACHIEVEMENTS_DATA))
             {
-                return null;
+                GD.PrintErr("Achievement System: Can't open achievements data. It doesn't exists on device");
+                return new Dictionary<string, UserAchievement>();
             }
 
             file.Open(ACHIEVEMENTS_DATA, File.ModeFlags.Read);
@@ -169,12 +189,6 @@ namespace Antilines.Presentation.Utils
 
         private Dictionary<string, Achievement> MergeDefinitionAndData(Dictionary<string, AchievementDefinition> definition, Dictionary<string, UserAchievement> data)
         {
-            GD.Print("Achievement System: Loading achievements " + string.Join(", ", definition.Keys));
-            if (data == null || data.Count == 0)
-            {
-                return definition.ToDictionary(a => a.Key, a => ToAchievement(a.Value, null));
-            }
-
             return definition.ToDictionary(a => a.Key, a => ToAchievement(a.Value, data.ContainsKey(a.Key) ? data[a.Key] : null));
         }
     }
