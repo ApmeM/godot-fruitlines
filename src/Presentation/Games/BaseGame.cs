@@ -17,14 +17,12 @@ public abstract partial class BaseGame
     protected Random r = new Random();
     protected MapGraphData graph = new MapGraphData(Width, Height);
 
-    private int currentScore = 0;
     protected int CurrentScore
     {
-        get => this.currentScore;
+        get => this.currentScoreLabel.Value;
         set
         {
-            this.currentScore = value;
-            this.currentScoreLabel.Text = $"{value}";
+            this.currentScoreLabel.Value = value;
         }
     }
 

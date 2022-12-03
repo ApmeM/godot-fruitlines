@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/Basket.png" type="Texture" id=1]
 [ext_resource path="res://Presentation/Games/BaseGame.cs" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/Buttons.png" type="Texture" id=6]
 [ext_resource path="res://assets/Frame.png" type="Texture" id=7]
 [ext_resource path="res://gd-popups/CustomTextPopup.tscn" type="PackedScene" id=8]
+[ext_resource path="res://gd-countingLabel/CountingLabel.tscn" type="PackedScene" id=9]
 
 [sub_resource type="StyleBoxFlat" id=7]
 content_margin_left = 5.0
@@ -156,13 +157,14 @@ margin_right = 185.0
 margin_bottom = 69.0
 custom_constants/margin_left = 10
 
-[node name="CurrentScoreLabel" type="Label" parent="HUD/TopLabelsMargin/TopLabelsContainer/CurrentScoreContainer/CurrentScoreMargin"]
+[node name="CurrentScoreLabel" parent="HUD/TopLabelsMargin/TopLabelsContainer/CurrentScoreContainer/CurrentScoreMargin" instance=ExtResource( 9 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 10.0
-margin_top = 13.0
 margin_right = 180.0
-margin_bottom = 51.0
+margin_bottom = 64.0
 theme = ExtResource( 4 )
-text = "0"
+AnimationTime = 1
 
 [node name="BottomButonsMargin" type="MarginContainer" parent="HUD"]
 anchor_top = 1.0
