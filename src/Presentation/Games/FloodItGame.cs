@@ -65,7 +65,12 @@ public partial class FloodItGame
             achievementNotifications.UnlockAchievement(Achievements.FloodIt15.ToString());
         }
 
-        return Mathf.Max(bestScore, currentScore);
+        if (bestScore == 0)
+        {
+            return currentScore;
+        }
+        
+        return Mathf.Min(bestScore, currentScore);
     }
 
     protected override void LoadInternal(GameRepository.GameState state)
