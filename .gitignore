@@ -3,6 +3,11 @@ obj/
 .import/
 .vs/
 .mono/
-build/
 *.import
 .vscode/
+*.user
+src/android/build/assets/
+src/android/build/build/
+src/android/build/.gradle/
+src/android/build/res/mipmap*
+src/android/build/src/debug/
